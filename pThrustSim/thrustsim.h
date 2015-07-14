@@ -1,19 +1,19 @@
 /*****************************************************************/
 /*    NAME: Edward Zhu										     */
 /*    ORGN: 2015 NREIP CINT HAMMER Project, San Diego, CA        */
-/*    FILE: timer.h                                              */
+/*    FILE: thrustsim.h                                          */
 /*    DATE: Jul 9th, 2015                                        */
 /*																 */
-/*    This is the header file for timer.cpp                      */
+/*    This is the header file for thrustsim.cpp                  */
 /*****************************************************************/
 
 #include "MOOS/libMOOS/App/MOOSApp.h"
 
-class StateGen : public CMOOSApp 
+class ThrustSim : public CMOOSApp 
 {
 public:
-	StateGen();
-	virtual ~StateGen() {}
+	ThrustSim();
+	virtual ~ThrustSim() {}
 
 	bool OnNewMail(MOOSMSG_LIST &NewMail);
 	bool OnStartUp();
@@ -21,18 +21,7 @@ public:
 	bool Iterate();
 
 protected:
-	double xd;
-	double yd;
-	double x0;
-	double y0;
-	double dxd;
-	double dyd;
-	double ddxd;
-	double ddyd;
-	double psid;
-	double ud;
+	double Fl;
+	double Fr;
 	double t;
-	double lastTime;
-	double lastdxd;
-	double lastdyd;
 };

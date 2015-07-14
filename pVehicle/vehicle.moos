@@ -64,8 +64,6 @@ ProcessConfig = pVehicle
 
 	VehicleName = Vehicle1
 
-	InitialLocation_x = 10
-	InitialLocation_y = 20
 	InitialLocation_psi = 0
 	InitialLocation_u = 0
 	InitialLocation_v = 0

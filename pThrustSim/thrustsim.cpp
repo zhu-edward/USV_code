@@ -1,14 +1,14 @@
 /*****************************************************************/
 /*    NAME: Edward Zhu										     */
 /*    ORGN: 2015 NREIP CINT HAMMER Project, San Diego, CA        */
-/*    FILE: trajectorysim.cpp                                    */
+/*    FILE: thrustsim.h                                          */
 /*    DATE: Jul 9th, 2015                                        */
 /*																 */
-/*    Defines functions in trajectorysim.h                       */
+/*    Defines functions in thrustsim.h                           */
 /*****************************************************************/
 
 #include "MOOS/libMOOS/App/MOOSApp.h"
-#include "trajectorysim.h"
+#include "thrustsim.h"
 #include <math.h>
 
 using namespace std;
@@ -16,29 +16,31 @@ using namespace std;
 //--------------------------------------------------------------------
 // Procedure: Constructor
 
-TrajectorySim::TrajectorySim() {
-	ud = 0;
-	psid = 0;
+ThrustSim::ThrustSim() {
 	t = 0;
+	Fl = 0;
+	Fr = 0;
 }
 
 //--------------------------------------------------------------------
 // Procedure: OnNewMail()
+// Since this process does not need to subscribe to any variables from
+// the MOOOSDB, this function always returns true
 
-bool TrajectorySim::OnNewMail(MOOSMSG_LIST &NewMail) {
+bool ThrustSim::OnNewMail(MOOSMSG_LIST &NewMail) {
 	MOOSMSG_LIST::iterator p1;
 
 	for (p1 = NewMail.begin(); p1!=NewMail.end(); p1++) {
 		CMOOSMsg & rMsg = *p1;
 
 		if (MOOSStrCmp(rMsg.GetKey(), "TIME")) {
-			CMOOSMsg &Msg = rMsg;
-			if (!Msg.IsDouble())
-				return MOOSFail("\"TIME\" needs to be a double");
-			t = Msg.GetDouble();
+				CMOOSMsg &Msg = rMsg;
+				if (!Msg.IsDouble())
+					return MOOSFail("\"TIME\" needs to be a double");
+				t = Msg.GetDouble();
 		}
 	}
-
+	
 	return true;
 }
 
@@ -47,18 +49,14 @@ bool TrajectorySim::OnNewMail(MOOSMSG_LIST &NewMail) {
 // Initialize the starting position and the time by reading from the
 // configuration file. If file is not present, use the default value
 
-bool TrajectorySim::OnStartUp() {
-	t = 0;
+bool ThrustSim::OnStartUp() {
+	Fl = 100;
+	if(!m_MissionReader.GetConfigurationParam("DESIRED_PORTTHRUSTER",Fl))
+		MOOSTrace("Warning parameter \"DESIRED_PORTTHRUSTER\" not specified. Using default of \"%f\"\n",Fl);
 
-	ud = 0.5;	// default value for initial x coordinate
-	// here we extract a double from the configuration file
-	if(!m_MissionReader.GetConfigurationParam("ud",ud))
-		MOOSTrace("Warning parameter \"ud\" not specified. Using default of \"%f\"\n",ud);
-
-	psid = 45;	// default value for initial x coordinate
-	// here we extract a double from the configuration file
-	if(!m_MissionReader.GetConfigurationParam("psid",psid))
-		MOOSTrace("Warning parameter \"psid\" not specified. Using default of \"%f\"\n",psid);
+	Fr = 100;
+	if(!m_MissionReader.GetConfigurationParam("DESIRED_STARBOARDTHRUSTER",Fr))
+		MOOSTrace("Warning parameter \"DESIRED_STARBOARDTHRUSTER\" not specified. Using default of \"%f\"\n",Fr);
 
 	return true;
 }
@@ -66,9 +64,11 @@ bool TrajectorySim::OnStartUp() {
 //--------------------------------------------------------------------
 // Procedure: OnConnectToServer
 // Registers the variables that this process needs to subscribe to.
+// Since this process does not subscribe to any variables, this function
+// always returns true
 
-bool TrajectorySim::OnConnectToServer() {
-	Register("TIME", 0);
+bool ThrustSim::OnConnectToServer() {
+	Register("TIME",0);
 	return true;
 }
 
@@ -77,10 +77,8 @@ bool TrajectorySim::OnConnectToServer() {
 // This function contains the commands that will be iterated upon
 // upon runtime
 
-bool TrajectorySim::Iterate() {
-	//ud = 0.5 + 0.5*sin(0.1*t);
-	//psid = 3.14/2+(t*2*3.14/100);
-	Notify("DESIRED_HEADING", psid);
-	Notify("DESIRED_SPEED", ud);
+bool ThrustSim::Iterate() {
+	Notify("DESIRED_PORTTHRUSTER", Fl);
+	Notify("DESIRED_STARBOARDTHRUSTER", Fr);
 	return true;
 }

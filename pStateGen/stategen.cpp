@@ -11,6 +11,7 @@
 #include "stategen.h"
 #include <math.h>
 #include <fstream>
+//#define PI (4*atan(1))
 
 using namespace std;
 
@@ -18,16 +19,12 @@ using namespace std;
 // Procedure: Constructor
 
 StateGen::StateGen() {
-	xd = 0;
-	yd = 0;
 	dxd = 0;
 	dyd = 0;
 	ddxd = 0;
 	ddyd = 0;
 	psid = 0;
 	ud = 0;
-	x0 = 0;
-	y0 = 0;
 	t = 0;
 	lastTime = 0;
 	lastdxd = 0;
@@ -73,28 +70,18 @@ bool StateGen::OnNewMail(MOOSMSG_LIST &NewMail) {
 // configuration file. If file is not present, use the default value
 
 bool StateGen::OnStartUp() {
-	// Initialize state variables
-	dxd = 0;
-	dyd = 0;
-	ddxd = 0;
-	ddyd = 0;
-	psid = 0;
-	ud = 0;
-	t = 0;
-	lastTime = 0;
-	lastdxd = 0;
-	lastdyd = 0;
 
-	x0 = 0.0;	// default value for initial x coordinate
+	x0 = 0;	// default value for initial x coordinate
 	// here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("x0",x0))
 	MOOSTrace("Warning parameter \"x0\" not specified. Using default of \"%f\"\n",x0);
 
-	y0 = -20.0; // default value for initial y coordinate
+	y0 = -20; // default value for initial y coordinate
 	// here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("y0",y0))
 	MOOSTrace("Warning parameter \"y0\" not specified. Using default of \"%f\"\n",y0);
 
+	// Set initial conditions for position
 	xd = x0;
 	yd = y0;
 
@@ -118,14 +105,27 @@ bool StateGen::OnConnectToServer() {
 // upon runtime
 
 bool StateGen::Iterate() {
-	
+	// Convert desired heading from degrees to radians
+	psid = fmod(psid * PI / 180, 2*PI);
+
+	// Find the desired velocities in the global x and y directions
 	dxd = ud * sin(psid);
 	dyd = ud * cos(psid);
+
+	// Find the desired positions in the global x and y directions by numerically integrating the velocities
 	xd = xd + ((t - lastTime) * dxd);
 	yd = yd + ((t - lastTime) * dyd);
+
+	// Find the desired accelerations in the global x and y directions by differentiating the velocities
 	ddxd = (dxd - lastdxd) / (t - lastTime);
 	ddyd = (dyd - lastdyd) / (t - lastTime);
 
+	// Record current state to find next state
+	lastTime = t;
+	lastdxd = dxd;
+	lastdyd = dyd;
+
+	// Publish the state variables and initial conditions to MOOSDB
 	Notify("Xd", xd);
 	Notify("Yd", yd);
 	Notify("Dxd", dxd);
@@ -134,10 +134,6 @@ bool StateGen::Iterate() {
 	Notify("Ddyd", ddyd);
 	Notify("X_INIT", x0);
 	Notify("Y_INIT", y0);
-
-	lastTime = t;
-	lastdxd = dxd;
-	lastdyd = dyd;
 
 	return true;
 }

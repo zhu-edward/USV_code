@@ -34,7 +34,11 @@ protected:
 
 	double x;
 	double y;
+	double x0;
+	double y0;
+	double init;
 	double psi;
+	double psi_deg;
 	double u;
 	double v;
 	double r;
@@ -50,6 +54,4 @@ protected:
 	double dr;
 	double dT;
 	std::string m_sVehicleName;
-	double eta1;
-	double eta2;
 };

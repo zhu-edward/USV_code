@@ -1,11 +1,11 @@
 //-------------------------------------------------
 // NAME: Edward Zhu
-// FILE: trajectorysim.moos
+// FILE: vehicle.moos
 //-------------------------------------------------
 
 ServerHost = localhost
 ServerPort = 9000
-Community  = timer
+Community  = thrustsim
 
 MOOSTimeWarp = 1
 
@@ -18,8 +18,10 @@ ProcessConfig = ANTLER
 
   Run = MOOSDB          	@ NewConsole = false
   Run = pTimer				@ NewConsole = false
-  Run = pTrajectorySim		@ NewConsole = false
+  //Run = pTrajectorySim		@ NewConsole = false
   Run = pStateGen	    	@ NewConsole = false
+  Run = pVehicle			@ NewConsole = false
+  Run = pThrustSim			@ NewConsole = false
 }
 
 //------------------------------------------
@@ -27,11 +29,11 @@ ProcessConfig = ANTLER
 
 ProcessConfig = pStateGen
 {
-	AppTick   = 20
-	CommsTick = 20
+	AppTick   = 50
+	CommsTick = 50
 
 	x0 = 0;
-	y0 = 0;
+	y0 = 10;
 }
 
 //------------------------------------------
@@ -39,8 +41,8 @@ ProcessConfig = pStateGen
 
 ProcessConfig = pTimer
 {
-	AppTick   = 100
-	CommsTick = 100
+	AppTick   = 200
+	CommsTick = 200
 }
 
 //------------------------------------------
@@ -53,4 +55,35 @@ ProcessConfig = pTrajectorySim
 
 	ud = 0.5
 	psid = 1
+}
+
+//------------------------------------------
+// pVehicle configuration  block
+
+ProcessConfig = pVehicle
+{
+	AppTick= 100
+	
+	CommsTick = 100
+
+	VehicleName = Vehicle1
+
+	InitialLocation_psi = 0
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+}
+
+//------------------------------------------
+// pThrustSim configuration  block
+
+ProcessConfig = pThrustSim
+{
+	AppTick= 100
+	CommsTick = 100
+
+	DESIRED_PORTTHRUSTER = 75
+	DESIRED_STARBOARDTHRUSTER = 100
 }

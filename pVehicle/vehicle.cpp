@@ -18,6 +18,7 @@ using namespace std;
 // Procedure: Constructor
 
 Vehicle::Vehicle() {
+	// Initialize model parameters
 	m11=190;
 	m22=240;
 	m33=82;
@@ -30,6 +31,7 @@ Vehicle::Vehicle() {
 	L=1;	//it should be the same as that in the controller
 	t=0;
 	t_r=0;
+	init = 0;
 }
 
 //--------------------------------------------------------------------
@@ -64,13 +66,13 @@ bool Vehicle::OnNewMail(MOOSMSG_LIST &NewMail) {
 			CMOOSMsg &Msg = rMsg;
 			if (!Msg.IsDouble())
 				return MOOSFail("\"X_INIT\" needs to be a double");
-			x = Msg.GetDouble();
+			x0 = Msg.GetDouble();
 		}
 		else if (MOOSStrCmp(rMsg.GetKey(), "Y_INIT")) {
 			CMOOSMsg &Msg = rMsg;
 			if (!Msg.IsDouble())
 				return MOOSFail("\"Y_INIT\" needs to be a double");
-			y = Msg.GetDouble();
+			y0 = Msg.GetDouble();
 		}
 	}
 
@@ -83,7 +85,7 @@ bool Vehicle::OnNewMail(MOOSMSG_LIST &NewMail) {
 // configuration file. If file is not present, use the default value
 
 bool Vehicle::OnStartUp() {
-	// Initialize state variables
+	// Define initial conditions
 	
 	m_sVehicleName = "UnNamed";
 	if(!m_MissionReader.GetConfigurationParam("VehicleName",m_sVehicleName))
@@ -93,6 +95,8 @@ bool Vehicle::OnStartUp() {
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_psi",psi))
 		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",psi);
+	psi_deg = fmod(psi * 180 / PI, 360);
+
 
 	u=0;	//default value
 	//here we extract a double from the configuration file
@@ -142,6 +146,12 @@ bool Vehicle::OnConnectToServer() {
 
 bool Vehicle::Iterate() {
 	
+	if (init==0) {
+		x = x0;
+		y = y0;
+		init = 1;
+	}
+
 	dx=u*cos(psi)-v*sin(psi);
 	dy=u*sin(psi)+v*cos(psi);
 	dpsi=r;
@@ -158,17 +168,19 @@ bool Vehicle::Iterate() {
 	u=u+dT*du;
 	v=v+dT*dv;
 	r=r+dT*dr;
-		
-	//Update state to MOOSDB
+	
+	psi_deg = fmod(psi * 180 / PI, 360);
 
-	Notify("NAV_X",x);
-	Notify("NAV_Y",y);
-	Notify("NAV_LAT",y);
-	Notify("NAV_LONG",x);
-	Notify("NAV_HEADING",psi);
-	Notify("NAV_SPEED",u);
-	Notify("V",v);
-	Notify("R",r);
+	//Update state to MOOSDB
+	Notify("NAV_X", x);
+	Notify("NAV_Y", y);
+	Notify("NAV_LAT", y);
+	Notify("NAV_LONG", x);
+	Notify("NAV_HEADING", psi_deg);
+	Notify("NAV_YAW", psi);
+	Notify("NAV_SPEED", u);
+	Notify("V", v);
+	Notify("R", r);
 
 	return true;
 }

@@ -70,12 +70,12 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
 			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_HEADING"))
+			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_YAW"))
 			{
 				//this message is about something called "Psi"
 				CMOOSMsg &Msg1 = rMsg;
 				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Psi\" would be a double");
+					return MOOSFail("Ouch - was promised \"NAV_YAW\" would be a double");
 
 				psi = Msg1.GetDouble();
 				//MOOSTrace("Psi is %f\n",ipsi);//the actual heading
@@ -213,9 +213,10 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 // configuration file. If file is not present, use the default value
 
 bool Controller::OnStartUp() {
-	// Initialize state variables
+	// Initialize controller parameters
 	
 	L=1;
+
 	if(!m_MissionReader.GetConfigurationParam("L",L))
 	    MOOSTrace("Warning parameter \"L\" not specified. Using default of \"%f\"\n",L);
 
@@ -317,7 +318,7 @@ bool Controller::OnConnectToServer() {
 	Register("NAV_Y",0);	//NAV_Y: y
 	Register("NAV_LAT",0);	//NAV_LAT: y. (x,y) and (xd,yd) should be in the same coordinate
 	Register("NAV_LONG",0);	//NAV_LONG: x
-	Register("NAV_HEADING",0);	//NAV_HRADING: psi
+	Register("NAV_YAW",0);	//NAV_HEADING: psi
  	Register("NAV_SPEED",0);	//NAV_SPEED: u
 	Register("V",0);
 	Register("R",0);

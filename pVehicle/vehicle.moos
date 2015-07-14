@@ -1,0 +1,75 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: vehicle.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = vehicle
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          	@ NewConsole = false
+  Run = pTimer				@ NewConsole = false
+  Run = pTrajectorySim		@ NewConsole = false
+  Run = pStateGen	    	@ NewConsole = false
+  Run = pVehicle			@ NewConsole = false
+}
+
+//------------------------------------------
+// pStateGen configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 20
+	CommsTick = 20
+
+	x0 = 0;
+	y0 = 10;
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 100
+	CommsTick = 100
+}
+
+//------------------------------------------
+// pTrajectorySim configuration  block
+
+ProcessConfig = pTrajectorySim
+{
+	AppTick   = 100
+	CommsTick = 100
+}
+
+//------------------------------------------
+// pVehicle configuration  block
+
+ProcessConfig = pVehicle
+{
+	AppTick= 100
+	
+	CommsTick = 100
+
+	VehicleName = Vehicle1
+
+	InitialLocation_x = 10
+	InitialLocation_y = 20
+	InitialLocation_psi = 0
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+}

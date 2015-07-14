@@ -1,0 +1,212 @@
+
+//tell all processes where the DB is (default is localhost:9000)
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = alpha
+
+MOOSTimeWarp = 1
+TERM_REPORTING = true
+
+// Forest Lake
+LatOrigin  = 43.825300 
+LongOrigin = -70.330400 
+
+
+
+ProcessConfig = MyMOOSVehicle
+{
+	//how fast should iterate be called? (used by CMOOSApp)
+	AppTick= 100
+	
+	//how responsive should comms be? (used by CommsClient)
+	CommsTick = 100
+
+	//name of the vehicle
+	VehicleName = Vehicle1
+
+	//initial location of x
+	InitialLocation_x = 10
+	InitialLocation_y = 20
+	InitialLocation_psi = 0
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+
+}
+
+
+ProcessConfig = MyMOOSController
+{
+	//how fast should iterate be called? (used by CMOOSApp)
+	AppTick= 100
+	
+	//how responsive should comms be? (used by CommsClient)
+	CommsTick = 100
+
+
+	//L should be the same as that in vehicle model
+	L = 1
+
+	//Control parameters
+	Err_e_i = 400
+	Err_z_i = 400
+	K1_i = 0.1
+	K2_i = 0.1
+	K3_i = 0.1
+
+	K1_m = 1
+	K2_m = 1
+	K3_m = 1
+
+	Constant_epsilon = 1
+	M11b = 190+30	//estimate of m11
+	M22b = 240+20	//estimate of m22
+	M33b = 82+20	//estimate of m33
+	D11b = 75+20	//estimate of d11
+	D22b = 105-20	//estimate of d22
+	D33b = 55+20	//estimate of d33
+	Rho1 = 40	//bound of |m11-m11b|
+	Rho2 = 30	//bound of |m22-m22b|
+	Rho3 = 30	//bound of |m33-m33b|
+	Rho4 = 30	//bound of |d11-d11b|
+	Rho5 = 30	//bound of |d33-d33b|
+	Rho6 = 10	//bound of |D11|
+	Rho7 = 10	//bound of |D33|
+	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
+	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
+	Rho10 = 10	//bound of |D22*m33/m22|
+}
+
+
+
+ProcessConfig = MyMOOSDesiredTrajectory
+{	
+	//how fast should iterate be called? (used by CMOOSApp)
+	AppTick= 100
+	
+	//how responsive should comms be? (used by CommsClient)
+	CommsTick = 100
+
+	//name of the vehicle
+	VehicleName = Veicle2
+
+	//Parameters
+	x_c = 5
+	y_c = 15
+	R = 200
+	W = 0.01
+	Theta = 0
+	
+}
+
+//-------------------------------------------
+// Logger configuration block
+ProcessConfig = pLogger
+{
+	//over loading basic params . . l et s be f e i st y
+	AppTick = 20.0
+	CommsTick = 20.0
+	// all file names begin with this stem
+	File = testdat
+	//where is the root log directory
+	PATH = /home/core-moos-v10/MOOSExamples/
+	//yes we want some sync logging for crude
+	//performance checking
+	//SyncLog = true @ 0.2
+
+	//yes we want async logging so we can replay
+	// exactly what happened and record strings
+	AsyncLog = true
+
+	//WildCardLogging = false
+	//yes append each created directory log file
+	//with a time stamp DAY MONTH YEAR TIME
+	FileTimeStamp = true
+	//what do we want to log
+	//( zero means capture everything )
+	Log = E1 @ 0.1 
+	Log = E2 @ 0.1 
+	Log = input_FL @ 0.1
+	Log = input_FR @ 0.1
+	Log = T_ref @ 0.1
+}
+
+
+//------------------------------------------
+// pMarineViewer config block
+
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  tiff_file            = forrest19.tif
+
+  set_pan_x            = -90
+  set_pan_y            = -280
+  zoom                 = 0.65
+  vehicle_shape_scale  = 1.5
+  hash_delta           = 50
+  hash_shade           = 0.4
+  hash_viewable        = true
+
+  trails_point_size   = 1
+
+  // Appcast configuration
+  appcast_height       = 75
+  appcast_width        = 30
+  appcast_viewable     = true
+  appcast_color_scheme = indigo
+  nodes_font_size      = medium
+  procs_font_size      = medium
+  appcast_font_size    = small
+  
+  //datum_viewable = true
+  //datum_size     = 18
+  //gui_size = small
+
+  left_context[survey-point] = DEPLOY=true
+  left_context[survey-point] = MOOS_MANUAL_OVERIDE=false
+  left_context[survey-point] = RETURN=false
+
+  right_context[return] = DEPLOY=true
+  right_context[return] = MOOS_MANUAL_OVERIDE=false
+  right_context[return] = RETURN=false
+
+  left_context[polyvert] = POLY_VERT=x=$(XPOS),y=$(YPOS)
+
+  scope  = RETURN
+  scope  = WPT_STAT
+  scope  = VIEW_SEGLIST
+  scope  = VIEW_POINT
+  scope  = VIEW_POLYGON
+  scope  = MVIEWER_LCLICK
+  scope  = MVIEWER_RCLICK
+
+  button_one = DEPLOY # DEPLOY=true
+  button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false
+  button_two = RETURN:T # RETURN=true
+  button_three = RETURN:F # RETURN=false
+
+  action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
+  action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
+  action  = RETURN=true
+  action  = UPDATES_RETURN=speed=1.4
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  MaxAppTick    = 2
+  AppTick	= 2
+  CommsTick	= 2
+
+  platform_type   = KAYAK
+  platform_length = 4
+}
+

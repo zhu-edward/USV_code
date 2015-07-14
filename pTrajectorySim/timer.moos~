@@ -1,0 +1,30 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: timer.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = stategen
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pStateGen	@ NewConsole = false
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 100
+	CommsTick = 100
+}

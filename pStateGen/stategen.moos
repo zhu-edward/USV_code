@@ -1,0 +1,43 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: stategen.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = stategen
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pTimer		@ NewConsole = false
+  Run = pStateGen	@ NewConsole = false
+}
+
+//------------------------------------------
+// pStateGen configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 50
+	CommsTick = 50
+
+	x0 = 0.0;
+	y0 = 10.0;
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 100
+	CommsTick = 100
+}

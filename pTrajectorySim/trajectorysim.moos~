@@ -1,0 +1,53 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: trajectorysim.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = timer
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pTimer			@ NewConsole = false
+  Run = pTrajectorySim	@ NewConsole = false
+  Run = pStateGen	    @ NewConsole = false
+}
+
+//------------------------------------------
+// pStateGen configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 20
+	CommsTick = 20
+
+	x0 = 0;
+	y0 = 10;
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 100
+	CommsTick = 100
+}
+
+//------------------------------------------
+// pTrajectorySim configuration  block
+
+ProcessConfig = pTrajectorySim
+{
+	AppTick   = 100
+	CommsTick = 100
+}

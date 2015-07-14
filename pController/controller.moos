@@ -1,0 +1,116 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: controller.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = controller
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          	@ NewConsole = false
+  Run = pTimer				@ NewConsole = false
+  Run = pTrajectorySim		@ NewConsole = false
+  Run = pStateGen	    	@ NewConsole = false
+  Run = pVehicle			@ NewConsole = false
+  Run = pController			@ NewConsole = false
+}
+
+//------------------------------------------
+// pStateGen configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 20
+	CommsTick = 20
+
+	x0 = 0
+	y0 = 0
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 100
+	CommsTick = 100
+}
+
+//------------------------------------------
+// pTrajectorySim configuration  block
+
+ProcessConfig = pTrajectorySim
+{
+	AppTick   = 100
+	CommsTick = 100
+
+	ud = 0.5
+	psid = 1
+
+//------------------------------------------
+// pVehicle configuration  block
+
+ProcessConfig = pVehicle
+{
+	AppTick= 100
+	
+	CommsTick = 100
+
+	VehicleName = Vehicle1
+
+	InitialLocation_psi = 0
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+}
+
+//------------------------------------------
+// pController configuration  block
+
+ProcessConfig = pController
+{
+	AppTick= 100
+	CommsTick = 100
+
+	L = 1
+
+	//Control parameters
+	Err_e_i = 400
+	Err_z_i = 400
+	K1_i = 0.1
+	K2_i = 0.1
+	K3_i = 0.1
+
+	K1_m = 1
+	K2_m = 1
+	K3_m = 1
+
+	Constant_epsilon = 1
+	M11b = 190+30	//estimate of m11
+	M22b = 240+20	//estimate of m22
+	M33b = 82+20	//estimate of m33
+	D11b = 75+20	//estimate of d11
+	D22b = 105-20	//estimate of d22
+	D33b = 55+20	//estimate of d33
+	Rho1 = 40	//bound of |m11-m11b|
+	Rho2 = 30	//bound of |m22-m22b|
+	Rho3 = 30	//bound of |m33-m33b|
+	Rho4 = 30	//bound of |d11-d11b|
+	Rho5 = 30	//bound of |d33-d33b|
+	Rho6 = 10	//bound of |D11|
+	Rho7 = 10	//bound of |D33|
+	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
+	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
+	Rho10 = 10	//bound of |D22*m33/m22|
+}

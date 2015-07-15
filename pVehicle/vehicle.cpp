@@ -32,6 +32,8 @@ Vehicle::Vehicle() {
 	t=0;
 	t_r=0;
 	init = 0;
+	lat = 0;
+	lon = 0;
 }
 
 //--------------------------------------------------------------------
@@ -94,34 +96,47 @@ bool Vehicle::OnStartUp() {
 	psi=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_psi",psi))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",psi);
-	psi_deg = fmod(psi * 180 / PI, 360);
+		MOOSTrace("Warning parameter \"InitialLocation_psi\" not specified. Using default of \"%f\"\n",psi);
+	//psi_deg = fmod(psi * 180 / PI, 360);
 
 
 	u=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_u",u))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",u);
+		MOOSTrace("Warning parameter \"InitialLocation_u\" not specified. Using default of \"%f\"\n",u);
 
 	v=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_v",v))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",v);
+		MOOSTrace("Warning parameter \"InitialLocation_v\" not specified. Using default of \"%f\"\n",v);
 
 	r=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_r",r))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",r);
+		MOOSTrace("Warning parameter \"InitialLocation_r\" not specified. Using default of \"%f\"\n",r);
 
 	DESIRED_PORTTHRUSTER=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("DESIRED_PORTTHRUSTER",DESIRED_PORTTHRUSTER))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",DESIRED_PORTTHRUSTER);
+		MOOSTrace("Warning parameter \"DESIRED_PORTTHRUSTER\" not specified. Using default of \"%f\"\n",DESIRED_PORTTHRUSTER);
 
 	DESIRED_STARBOARDTHRUSTER=0;	//default value
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("DESIRED_STARBOARDTHRUSTER", DESIRED_STARBOARDTHRUSTER))
-		MOOSTrace("Warning parameter \"InitialLocation\" not specified. Using default of \"%f\"\n",DESIRED_STARBOARDTHRUSTER);
+		MOOSTrace("Warning parameter \"DESIRED_STARBOARDTHRUSTER\" not specified. Using default of \"%f\"\n",DESIRED_STARBOARDTHRUSTER);
+
+	latOrigin = 43.825300;
+	//here we extract a double from the configuration file
+	if(!m_MissionReader.GetConfigurationParam("latOrigin", latOrigin))
+		MOOSTrace("Warning parameter \"latOrigin\" not specified. Using default of \"%f\"\n",latOrigin);
+
+	longOrigin = -70.330400;
+	//here we extract a double from the configuration file
+	if(!m_MissionReader.GetConfigurationParam("longOrigin", longOrigin))
+		MOOSTrace("Warning parameter \"longOrigin\" not specified. Using default of \"%f\"\n",longOrigin);
+
+	if(!geodesy.Initialise(latOrigin, longOrigin))
+		MOOSTrace("pVehicle: Geodesy init failed.\n");
 
 	return true;
 }
@@ -169,15 +184,17 @@ bool Vehicle::Iterate() {
 	v=v+dT*dv;
 	r=r+dT*dr;
 	
-	psi_deg = fmod(psi * 180 / PI, 360);
+	//psi_deg = fmod(psi * 180 / PI, 360);
+
+	geodesy.UTM2LatLong(x, y, lat, lon);
 
 	//Update state to MOOSDB
 	Notify("NAV_X", x);
 	Notify("NAV_Y", y);
-	Notify("NAV_LAT", y);
-	Notify("NAV_LONG", x);
-	Notify("NAV_HEADING", psi_deg);
-	Notify("NAV_YAW", psi);
+	Notify("NAV_LAT", lat);
+	Notify("NAV_LONG", lon);
+	Notify("NAV_HEADING", psi);
+	//Notify("NAV_YAW", psi);
 	Notify("NAV_SPEED", u);
 	Notify("V", v);
 	Notify("R", r);

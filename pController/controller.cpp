@@ -46,36 +46,36 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
     
 			// repetitive "ifs" is one way to build a switch yard for
 			// the messages
-			if(MOOSStrCmp(rMsg.GetKey(),"NAV_LAT"))
+			if(MOOSStrCmp(rMsg.GetKey(),"NAV_Y"))
 			{
 				//this message is about something called "NAV_LAT"
 				CMOOSMsg &Msg = rMsg;
 				if(!Msg.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_LAT\" would be a double");
+					return MOOSFail("Ouch - was promised \"NAV_Y\" would be a double");
 
 				y = Msg.GetDouble();
 				//MOOSTrace("Input_FL is %f\n",x);//the actual heading
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
 			}
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_LONG"))
+			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_X"))
 			{
 				//this message is about something called "NAV_LONG"
 				CMOOSMsg &Msg1 = rMsg;
 				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_LONG\" would be a double");
+					return MOOSFail("Ouch - was promised \"NAV_X\" would be a double");
 
 				x = Msg1.GetDouble();
 				//MOOSTrace("Y is %f\n",y);//the actual heading
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
 			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_YAW"))
+			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_HEADING"))
 			{
 				//this message is about something called "Psi"
 				CMOOSMsg &Msg1 = rMsg;
 				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_YAW\" would be a double");
+					return MOOSFail("Ouch - was promised \"NAV_HEADING\" would be a double");
 
 				psi = Msg1.GetDouble();
 				//MOOSTrace("Psi is %f\n",ipsi);//the actual heading
@@ -316,9 +316,8 @@ bool Controller::OnStartUp() {
 bool Controller::OnConnectToServer() {
 	Register("NAV_X",0);	//NAV_X: x. (X,y) and (xd,yd) should be in the same coordinate
 	Register("NAV_Y",0);	//NAV_Y: y
-	Register("NAV_LAT",0);	//NAV_LAT: y. (x,y) and (xd,yd) should be in the same coordinate
-	Register("NAV_LONG",0);	//NAV_LONG: x
-	Register("NAV_YAW",0);	//NAV_HEADING: psi
+	//Register("NAV_YAW",0);	//NAV_HEADING: psi
+	Register("NAV_HEADING", 0);
  	Register("NAV_SPEED",0);	//NAV_SPEED: u
 	Register("V",0);
 	Register("R",0);

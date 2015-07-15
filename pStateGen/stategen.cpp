@@ -106,7 +106,7 @@ bool StateGen::OnConnectToServer() {
 
 bool StateGen::Iterate() {
 	// Convert desired heading from degrees to radians
-	psid = fmod(psid * PI / 180, 2*PI);
+	//psid = fmod(psid * PI / 180, 2*PI);
 
 	// Find the desired velocities in the global x and y directions
 	dxd = ud * sin(psid);

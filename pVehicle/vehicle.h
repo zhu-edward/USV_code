@@ -8,6 +8,7 @@
 /*****************************************************************/
 
 #include "MOOS/libMOOS/App/MOOSApp.h"
+#include "MOOS/libMOOSGeodesy/MOOSGeodesy.h"
 
 class Vehicle : public CMOOSApp 
 {
@@ -21,6 +22,8 @@ public:
 	bool Iterate();
 
 protected:
+	CMOOSGeodesy geodesy;
+
 	double m11;
 	double m22;
 	double m33;
@@ -34,6 +37,8 @@ protected:
 
 	double x;
 	double y;
+	double lat;
+	double lon;
 	double x0;
 	double y0;
 	double init;
@@ -53,5 +58,7 @@ protected:
 	double dv;
 	double dr;
 	double dT;
+	double latOrigin;
+	double longOrigin;
 	std::string m_sVehicleName;
 };

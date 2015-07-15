@@ -12,9 +12,6 @@ MOOSTimeWarp = 1
 //------------------------------------------
 // Antler configuration  block
 
-LatOrigin  = 43.825300 
-LongOrigin = -70.330400 
-
 ProcessConfig = ANTLER
 {
   MSBetweenLaunches = 200
@@ -58,7 +55,7 @@ ProcessConfig = pTrajectorySim
 	CommsTick = 4
 
 	ud = 0.5
-	psid = 45
+	psid = 1
 
 //------------------------------------------
 // pVehicle configuration  block
@@ -76,6 +73,8 @@ ProcessConfig = pVehicle
 	InitialLocation_r = 0
 	DESIRED_PORTTHRUSTER = 0
 	DESIRED_STARBOARDTHRUSTER = 0
+	LatOrigin  = 43.825300 
+	LongOrigin = -70.330400 
 }
 
 //------------------------------------------

@@ -10,7 +10,7 @@ set(EXECNAME pTrajectorySim)
 #find_package(MOOS 10.0)
 
 #what files are needed?
-SET(SRCS trajectorysim.cpp trajectorysim.cpp)
+SET(SRCS trajectorysim.cpp main.cpp)
 
 include_directories(  ${MOOS_INCLUDE_DIRS} 
 ${MOOS_DEPEND_INCLUDE_DIRS})

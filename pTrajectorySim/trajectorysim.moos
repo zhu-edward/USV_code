@@ -17,7 +17,7 @@ ProcessConfig = ANTLER
   MSBetweenLaunches = 200
 
   Run = MOOSDB          	@ NewConsole = false
-  Run = pTimer			@ NewConsole = false
+  Run = pTimer				@ NewConsole = false
   Run = pTrajectorySim		@ NewConsole = false
   Run = pStateGen	    	@ NewConsole = false
 }

@@ -31,6 +31,7 @@ protected:
 	double y;
 	double psi;	//NAV_HEADING
 	double u;	//NAV_SPEED
+	double ud;
 	double v;
 	double r;	
 	double xd;	//(xd,yd) is the GPS coordibate position if (x,y) is the GPS pisition (NAV_LAT,NAV_LONG) or it is local coordinate possition if (x,y) is local coorinate position (NAV_X,NAV_Y). 
@@ -43,6 +44,7 @@ protected:
 
 	double DESIRED_PORTTHRUSTER;
 	double DESIRED_STARBOARDTHRUSTER;
+	double Fmax;
 
 	double Err_e_i;
 	double Err_z_i;

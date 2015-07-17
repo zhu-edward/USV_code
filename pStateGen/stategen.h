@@ -30,6 +30,7 @@ protected:
 	double ddxd;
 	double ddyd;
 	double psid;
+	double psid_refE;
 	double ud;
 	double t;
 	double lastTime;

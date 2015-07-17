@@ -18,11 +18,14 @@ ProcessConfig = ANTLER
 
   Run = MOOSDB          	@ NewConsole = false
   Run = pTimer				@ NewConsole = false
-  Run = pTrajectorySim		@ NewConsole = false
+  //Run = pTrajectorySim		@ NewConsole = false
   Run = pStateGen	    	@ NewConsole = false
   Run = pVehicle			@ NewConsole = false
   Run = pController			@ NewConsole = false
   Run = pNodeReporter		@ NewConsole = false
+  Run = pHelmIvP			@ NewConsole = false
+  Run = pMarineViewer		@ NewConsole = false
+  Run = pLogger				@ NewConsole = false
 }
 
 //------------------------------------------
@@ -55,7 +58,7 @@ ProcessConfig = pTrajectorySim
 	CommsTick = 4
 
 	ud = 0.5
-	psid = 1
+	psid = 120
 
 //------------------------------------------
 // pVehicle configuration  block
@@ -67,7 +70,7 @@ ProcessConfig = pVehicle
 
 	VehicleName = Vehicle1
 
-	InitialLocation_psi = 0
+	InitialLocation_psi = 270
 	InitialLocation_u = 0
 	InitialLocation_v = 0
 	InitialLocation_r = 0
@@ -115,6 +118,7 @@ ProcessConfig = pController
 	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
 	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
 	Rho10 = 10	//bound of |D22*m33/m22|
+	Control_Saturation = 300  // Control saturation value
 }
 
 //------------------------------------------
@@ -127,4 +131,110 @@ ProcessConfig = pNodeReporter
 
   platform_type   = USV
   platform_length = 4
+}
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  bhv_dir_not_found_ok = true
+
+  behaviors  = alpha.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:4:41
+}
+
+//------------------------------------------
+// pMarineViewer config block
+
+ProcessConfig = pMarineViewer
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  tiff_file            = forrest19.tif
+
+  set_pan_x            = -90
+  set_pan_y            = -280
+  zoom                 = 0.65
+  vehicle_shape_scale  = 1.5
+  hash_delta           = 50
+  hash_shade           = 0.4
+  hash_viewable        = true
+
+  trails_point_size   = 1
+
+  // Appcast configuration
+  appcast_height       = 75
+  appcast_width        = 30
+  appcast_viewable     = true
+  appcast_color_scheme = indigo
+  nodes_font_size      = medium
+  procs_font_size      = medium
+  appcast_font_size    = small
+  
+  //datum_viewable = true
+  //datum_size     = 18
+  //gui_size = small
+
+  //left_context[survey-point] = DEPLOY=true
+  //left_context[survey-point] = MOOS_MANUAL_OVERRIDE=false
+  //left_context[survey-point] = RETURN=false
+
+  right_context[return] = DEPLOY=true
+  right_context[return] = MOOS_MANUAL_OVERRIDE=false
+  right_context[return] = RETURN=false
+
+  scope  = MISSION
+  scope  = SURVEY_DIST_TO_NEXT
+  scope  = SURVEY_DIST_TO_PREV
+  scope  = RETURN
+  scope  = WPT_STAT
+  scope  = MVIEWER_LCLICK
+
+  button_one = DEPLOY # DEPLOY=true
+  button_one = MOOS_MANUAL_OVERRIDE=false # RETURN=false
+  button_two = RETURN # RETURN=true
+
+  action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
+  action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERRIDE=false
+  action  = RETURN=true
+  action  = UPDATES_RETURN=speed=1.4
+}
+
+//------------------------------------------
+// pLogger config block
+
+ProcessConfig = pLogger
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  AsyncLog = true
+
+  // For variables that are published in a bundle on their first post,
+  // explicitly declare their logging request
+
+  Log = NAV_X
+  Log = NAV_Y
+  Log = NAV_HEADING
+  Log = NAV_SPEED
+  Log = Xd
+  Log = Yd
+  Log = DESIRED_HEADING
+  Log = DESIRED_SPEED
+  Log = DESIRED_PORTTHRUSTER
+  Log = DESIRED_STARBOARDTHRUSTER
+
+
+  LogAuxSrc = true
+  WildCardLogging = true
+  WildCardOmitPattern = *_STATUS
+  WildCardOmitPattern = DB_VARSUMMARY
+  WildCardOmitPattern = DB_RWSUMMARY
+  WildCardExclusionLog = true
 }

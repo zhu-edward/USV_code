@@ -43,6 +43,7 @@ protected:
 	double y0;
 	double init;
 	double psi;
+	double psi_rad;
 	double psi_deg;
 	double u;
 	double v;

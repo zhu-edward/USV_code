@@ -97,7 +97,14 @@ bool Vehicle::OnStartUp() {
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("InitialLocation_psi",psi))
 		MOOSTrace("Warning parameter \"InitialLocation_psi\" not specified. Using default of \"%f\"\n",psi);
-	//psi_deg = fmod(psi * 180 / PI, 360);
+	psi = (90-psi)*PI/180;
+
+	if (psi < 0) {
+		psi = fmod(psi, 2*PI) + 2*PI;
+	}
+	else {
+		psi = fmod(psi, 2*PI);
+	}
 
 
 	u=0;	//default value
@@ -184,7 +191,22 @@ bool Vehicle::Iterate() {
 	v=v+dT*dv;
 	r=r+dT*dr;
 	
-	//psi_deg = fmod(psi * 180 / PI, 360);
+	if (psi < 0) {
+		psi_rad = fmod(psi, 2*PI) + 2*PI;
+	}
+	else {
+		psi_rad = fmod(psi, 2*PI);
+	}
+
+	// Convert back to degrees and HelmIvP reference for pMarineViewer
+	psi_deg = 90-psi_rad*180/PI;
+
+	if (psi_deg < 0) {
+		psi_deg = fmod(psi_deg, 360) + 360;
+	}
+	else {
+		psi_deg = fmod(psi_deg, 360);
+	}
 
 	geodesy.UTM2LatLong(x, y, lat, lon);
 
@@ -193,8 +215,8 @@ bool Vehicle::Iterate() {
 	Notify("NAV_Y", y);
 	Notify("NAV_LAT", lat);
 	Notify("NAV_LONG", lon);
-	Notify("NAV_HEADING", psi);
-	//Notify("NAV_YAW", psi);
+	Notify("NAV_HEADING", psi_deg);
+	Notify("NAV_YAW", psi_rad);
 	Notify("NAV_SPEED", u);
 	Notify("V", v);
 	Notify("R", r);

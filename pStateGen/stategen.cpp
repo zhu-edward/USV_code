@@ -105,12 +105,19 @@ bool StateGen::OnConnectToServer() {
 // upon runtime
 
 bool StateGen::Iterate() {
-	// Convert desired heading from degrees to radians
-	//psid = fmod(psid * PI / 180, 2*PI);
+	// Convert from HelmIvP reference frame (z-down, N-zero), to model and controller reference frame (z-up, E-zero)
+	psid_refE = (90-psid)*PI/180;
+
+	if (psid_refE < 0) {
+		psid_refE = fmod(psid_refE, 2*PI) + 2*PI;
+	}
+	else {
+		psid_refE = fmod(psid_refE, 2*PI);
+	}
 
 	// Find the desired velocities in the global x and y directions
-	dxd = ud * sin(psid);
-	dyd = ud * cos(psid);
+	dxd = ud * cos(psid_refE);
+	dyd = ud * sin(psid_refE);
 
 	// Find the desired positions in the global x and y directions by numerically integrating the velocities
 	xd = xd + ((t - lastTime) * dxd);
@@ -134,6 +141,7 @@ bool StateGen::Iterate() {
 	Notify("Ddyd", ddyd);
 	Notify("X_INIT", x0);
 	Notify("Y_INIT", y0);
+	Notify("DESIRED_HEADING_REFE", psid_refE);
 
 	return true;
 }

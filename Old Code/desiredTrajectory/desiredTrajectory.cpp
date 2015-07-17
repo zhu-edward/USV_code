@@ -118,7 +118,7 @@ int main(int argc, char * argv[])
 
     //what's the name of the configuration file that the application
     //should look in if it needs to read parameters?
-    const char * sMissionFile = "mission.moos";
+    const char * sMissionFile = "controller.moos";
 
     //under what name shoud the application register with the MOOSDB?
     const char * sMOOSName = "desiredTrajectory";

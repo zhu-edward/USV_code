@@ -10,6 +10,7 @@
 #include "MOOS/libMOOS/App/MOOSApp.h"
 #include "controller.h"
 #include <math.h>
+#include <stdlib.h>
 #include <fstream>
 
 using namespace std;
@@ -22,6 +23,7 @@ Controller::Controller() {
 	y=0;
 	psi=0;
 	u=0;
+	ud = 0;
 	v=0;
 	r=0;
 	xd=0;
@@ -48,7 +50,7 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 			// the messages
 			if(MOOSStrCmp(rMsg.GetKey(),"NAV_Y"))
 			{
-				//this message is about something called "NAV_LAT"
+				//this message is about something called "NAV_Y"
 				CMOOSMsg &Msg = rMsg;
 				if(!Msg.IsDouble())
 					return MOOSFail("Ouch - was promised \"NAV_Y\" would be a double");
@@ -60,7 +62,7 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 			}
 			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_X"))
 			{
-				//this message is about something called "NAV_LONG"
+				//this message is about something called "NAV_X"
 				CMOOSMsg &Msg1 = rMsg;
 				if(!Msg1.IsDouble())
 					return MOOSFail("Ouch - was promised \"NAV_X\" would be a double");
@@ -70,12 +72,12 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
 			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_HEADING"))
+			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_YAW"))
 			{
 				//this message is about something called "Psi"
 				CMOOSMsg &Msg1 = rMsg;
 				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_HEADING\" would be a double");
+					return MOOSFail("Ouch - was promised \"NAV_YAW\" would be a double");
 
 				psi = Msg1.GetDouble();
 				//MOOSTrace("Psi is %f\n",ipsi);//the actual heading
@@ -202,6 +204,18 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
 			}
+			else if(MOOSStrCmp(rMsg.GetKey(),"DESIRED_SPEED"))
+			{
+				//this message is about something called "DESIRED_SPEED"
+				CMOOSMsg &Msg1 = rMsg;
+				if(!Msg1.IsDouble())
+					return MOOSFail("Ouch - was promised \"DESIRED_SPEED\" would be a double");
+
+				ud = Msg1.GetDouble();
+				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+				//if you want to see all details in Msg, you can print a message by
+				//Msg.Trace();
+			}	
 	}
 
 	return true;
@@ -305,6 +319,9 @@ bool Controller::OnStartUp() {
 	rho10=10;
 	if(!m_MissionReader.GetConfigurationParam("Rho10",rho10))
 	    MOOSTrace("Warning parameter \"rho10\" not specified. Using default of \"%f\"\n",rho10);
+	Fmax = 100;
+	if(!m_MissionReader.GetConfigurationParam("Control_Saturation", Fmax))
+		MOOSTrace("Warning parameter \"Control_Saturation\" not specified. Using default of \"%f\"\n", Fmax);
 
 	return true;
 }
@@ -316,8 +333,7 @@ bool Controller::OnStartUp() {
 bool Controller::OnConnectToServer() {
 	Register("NAV_X",0);	//NAV_X: x. (X,y) and (xd,yd) should be in the same coordinate
 	Register("NAV_Y",0);	//NAV_Y: y
-	//Register("NAV_YAW",0);	//NAV_HEADING: psi
-	Register("NAV_HEADING", 0);
+	Register("NAV_YAW",0);	//NAV_HEADING: psi
  	Register("NAV_SPEED",0);	//NAV_SPEED: u
 	Register("V",0);
 	Register("R",0);
@@ -328,6 +344,7 @@ bool Controller::OnConnectToServer() {
 	Register("Ddxd",0);
 	Register("Ddyd",0);
 	Register("TIME",0);
+	Register("DESIRED_SPEED", 0);
 	return true;
 }
 
@@ -380,6 +397,17 @@ bool Controller::Iterate() {
 
 	DESIRED_PORTTHRUSTER=(zeta1-zeta2/L)/2;   //left force
 	DESIRED_STARBOARDTHRUSTER=(zeta1+zeta2/L)/2;  //right force
+
+	if ((ud <= 0.001) && (ud >= -0.001)) {
+		DESIRED_PORTTHRUSTER = 0;
+		DESIRED_STARBOARDTHRUSTER = 0;
+	}
+	else if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
+		DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
+	}
+	else if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
+		DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
+	}
 
 	Notify("DESIRED_PORTTHRUSTER",DESIRED_PORTTHRUSTER);
 	Notify("DESIRED_STARBOARDTHRUSTER",DESIRED_STARBOARDTHRUSTER);

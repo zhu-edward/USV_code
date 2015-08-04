@@ -10,7 +10,7 @@
 #include <iostream>
 #include "MBUtils.h"
 #include "ColorParse.h"
-#include "controller.h"
+#include "backsteppingcontroller.h"
 
 using namespace std;
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[])
   }
 
   cout << termColor("green");
-  cout << "pController launching as " << run_command << endl;
+  cout << "pBacksteppingController launching as " << run_command << endl;
   cout << termColor() << endl;
 
-  Controller controller;
-  controller.Run(run_command.c_str(), mission_file.c_str(), argc, argv);
+  BacksteppingController backsteppingcontroller;
+  backsteppingcontroller.Run(run_command.c_str(), mission_file.c_str(), argc, argv);
 
   return(0);
 }

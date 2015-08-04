@@ -1,0 +1,46 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: timer.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = Node1
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pPatternDefinition			@ NewConsole = false
+  Run = pShare			@ NewConsole = false
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+//------------------------------------------
+// pPatternDefinition
+
+ProcessConfig = pPatternDefinition
+{
+  AppTick = 1
+  CommsTick = 1
+
+  Height = 20
+  Base = 40
+}
+
+ProcessConfig = pShare
+{
+	AppTick = 2
+	CommsTick = 2
+
+	input = route = localhost:9301
+	output = src_name = pattern, dest_name = pattern, route = localhost:9300
+}

@@ -1,0 +1,11 @@
+//------------------------------------------
+// pPatternDefinition
+
+ProcessConfig = pPatternDefinition
+{
+  AppTick = 1
+  CommsTick = 1
+
+  Height = 20
+  Base = 40
+}

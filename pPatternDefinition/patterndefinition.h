@@ -1,19 +1,20 @@
 /*****************************************************************/
 /*    NAME: Edward Zhu										     */
 /*    ORGN: 2015 NREIP CINT HAMMER Project, San Diego, CA        */
-/*    FILE: timer.h                                              */
+/*    FILE: patterndefinition.h                                  */
 /*    DATE: Jul 9th, 2015                                        */
 /*																 */
-/*    This is the header file for timer.cpp                      */
+/*    This is the header file for patterndefinition.cpp          */
 /*****************************************************************/
 
 #include "MOOS/libMOOS/App/MOOSApp.h"
+#include <string>
 
-class StateGen : public CMOOSApp 
+class PatternDefinition : public CMOOSApp 
 {
 public:
-	StateGen();
-	virtual ~StateGen() {}
+	PatternDefinition();
+	virtual ~PatternDefinition() {}
 
 	bool OnNewMail(MOOSMSG_LIST &NewMail);
 	bool OnStartUp();
@@ -21,20 +22,10 @@ public:
 	bool Iterate();
 
 protected:
-	double xd;
-	double yd;
-	double x0;
-	double y0;
-	double dxd;
-	double dyd;
-	double ddxd;
-	double ddyd;
-	double psid;
-	double psid_refE;
-	double ud;
-	double t;
-	double lastTime;
-	double lastdxd;
-	double lastdyd;
-	double init;
-};
+	struct point {double X; double Y;} leader, follower1, follower2, follower3;
+	double height;
+	double base;
+
+	char buffer [100];
+	std::string pattern;
+}; 

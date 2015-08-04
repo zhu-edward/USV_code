@@ -8,6 +8,7 @@
 /*****************************************************************/
 
 #include "MOOS/libMOOS/App/MOOSApp.h"
+#include <string>
 
 class Controller : public CMOOSApp 
 {
@@ -94,4 +95,15 @@ protected:
 	double rho8;
 	double rho9;
 	double rho10;
+
+	double e1out;
+	double e2out;
+	double P0_X;
+	double P0_Y;
+
+	std::string pattern;
+	char buffer[10];
+	double Header0XPos;
+	double Header0YPos;
+	double Header1XPos;
 };

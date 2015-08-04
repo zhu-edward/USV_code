@@ -12,6 +12,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <fstream>
+#include <string.h>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ Controller::Controller() {
 	dyd=0;
 	ddxd=0;
 	ddyd=0;
+
 }
 
 //--------------------------------------------------------------------
@@ -215,7 +217,53 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
 				//if you want to see all details in Msg, you can print a message by
 				//Msg.Trace();
-			}	
+			}
+			/*else if(MOOSStrCmp(rMsg.GetKey(),"P0_X"))
+			{
+				//this message is about something called "P0_X"
+				CMOOSMsg &Msg1 = rMsg;
+				if(!Msg1.IsDouble())
+					return MOOSFail("Ouch - was promised \"P0_X\" would be a double");
+
+				P0_X = Msg1.GetDouble();
+				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+				//if you want to see all details in Msg, you can print a message by
+				//Msg.Trace();
+			}
+			else if(MOOSStrCmp(rMsg.GetKey(),"P0_Y"))
+			{
+				//this message is about something called "P0_Y"
+				CMOOSMsg &Msg1 = rMsg;
+				if(!Msg1.IsDouble())
+					return MOOSFail("Ouch - was promised \"P0_Y\" would be a double");
+
+				P0_Y = Msg1.GetDouble();
+				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+				//if you want to see all details in Msg, you can print a message by
+				//Msg.Trace();
+			}*/
+			else if(MOOSStrCmp(rMsg.GetKey(),"pattern"))
+			{
+				//this message is about something called "Pattern"
+				CMOOSMsg &Msg1 = rMsg;
+				if(!Msg1.IsString())
+					return MOOSFail("Ouch - was promised \"pattern\" would be a string");
+
+				// Parse the pattern definition string to find the coordinates
+				pattern = Msg1.GetString();
+
+				Header0XPos = pattern.find("P0_X");
+				Header0YPos = pattern.find("P0_Y");
+				Header1XPos = pattern.find("P1_X");
+
+				char newBuf[10] = {'0','0','0','0','0','0','0','0','0','0'};
+
+				pattern.copy(buffer, (Header0YPos-1)-(Header0XPos+5), Header0XPos+5);
+				P0_X = atof(buffer);
+				strcpy(buffer, newBuf);
+				pattern.copy(buffer, (Header1XPos-1)-(Header0YPos+5), Header0YPos+5);
+				P0_Y = atof(buffer);
+			}
 	}
 
 	return true;
@@ -345,6 +393,7 @@ bool Controller::OnConnectToServer() {
 	Register("Ddyd",0);
 	Register("TIME",0);
 	Register("DESIRED_SPEED", 0);
+	Register("pattern",0);
 	return true;
 }
 
@@ -354,7 +403,9 @@ bool Controller::OnConnectToServer() {
 // upon runtime
 
 bool Controller::Iterate() {
-	
+	e1out = x - P0_X;
+	e2out = y - P0_Y;
+
 	e1=x-xd+epsilon*cos(psi);
 	e2=y-yd+epsilon*sin(psi);
 
@@ -398,19 +449,23 @@ bool Controller::Iterate() {
 	DESIRED_PORTTHRUSTER=(zeta1-zeta2/L)/2;   //left force
 	DESIRED_STARBOARDTHRUSTER=(zeta1+zeta2/L)/2;  //right force
 
-	if ((ud <= 0.001) && (ud >= -0.001)) {
+	if (abs(ud) <= 0.01) {
 		DESIRED_PORTTHRUSTER = 0;
 		DESIRED_STARBOARDTHRUSTER = 0;
 	}
-	else if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
+
+	if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
 		DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
 	}
-	else if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
+
+	if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
 		DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
 	}
 
 	Notify("DESIRED_PORTTHRUSTER",DESIRED_PORTTHRUSTER);
 	Notify("DESIRED_STARBOARDTHRUSTER",DESIRED_STARBOARDTHRUSTER);
+	Notify("e1out", e1out);
+	Notify("e2out", e2out);
 
 	return true;
 }

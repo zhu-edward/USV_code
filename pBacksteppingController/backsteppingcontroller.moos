@@ -1,0 +1,66 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: timer.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = BSCont
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pBacksteppingController			@ NewConsole = false
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pBacksteppingController
+{
+	AppTick   = 5
+	CommsTick = 5
+
+	// Vehicle Parameters
+	m1e = 210
+	m2e = 245
+	m3e = 75
+	d1e = 65
+	d2e = 110
+	d3e = 52
+	L = 1
+
+	epsilon = 0.05
+
+	rho1 = 10
+	rho2 = 10
+	rho3 = 10
+	rho4 = 10
+	rho5 = 10
+	rho6 = 10
+	rho7 = 10 
+	rhox = 3
+	rhoy = 3
+
+	K1 = 3
+	K2 = 3
+	K4 = 3
+	K3 = 3
+	K5 = 3
+
+	VehicleIdentity = 2
+	Neighbors = V1
+	Fmax = 300
+
+	// Initial conditions
+	eta3f = 1
+	eta4f = 1
+	eta5f = 1
+}

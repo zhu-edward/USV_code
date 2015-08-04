@@ -3,14 +3,14 @@
 /*    ORGN: 2015 NREIP CINT HAMMER Project, San Diego, CA        */
 /*    FILE: main.cpp                                             */
 /*    DATE: Jul 9th, 2015                                        */
-/*																                               */
+/*																 */
 /*    Main function that executes the process                    */
 /*****************************************************************/
 
 #include <iostream>
 #include "MBUtils.h"
 #include "ColorParse.h"
-#include "controller.h"
+#include "patterndefinition.h"
 
 using namespace std;
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[])
   }
 
   cout << termColor("green");
-  cout << "pController launching as " << run_command << endl;
+  cout << "pPatternDefinition launching as " << run_command << endl;
   cout << termColor() << endl;
 
-  Controller controller;
-  controller.Run(run_command.c_str(), mission_file.c_str(), argc, argv);
+  PatternDefinition patterndefinition;
+  patterndefinition.Run(run_command.c_str(), mission_file.c_str(), argc, argv);
 
   return(0);
 }

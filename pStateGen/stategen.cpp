@@ -29,6 +29,7 @@ StateGen::StateGen() {
 	lastTime = 0;
 	lastdxd = 0;
 	lastdyd = 0;
+	init = 0;
 }
 
 //--------------------------------------------------------------------
@@ -59,6 +60,18 @@ bool StateGen::OnNewMail(MOOSMSG_LIST &NewMail) {
 				return MOOSFail("\"TIME\" needs to be a double");
 			t = Msg.GetDouble();
 		}
+		else if (MOOSStrCmp(rMsg.GetKey(), "X_INIT")) {
+			CMOOSMsg &Msg = rMsg;
+			if (!Msg.IsDouble())
+				return MOOSFail("\"X_INIT\" needs to be a double");
+			x0 = Msg.GetDouble();
+		}
+		else if (MOOSStrCmp(rMsg.GetKey(), "Y_INIT")) {
+			CMOOSMsg &Msg = rMsg;
+			if (!Msg.IsDouble())
+				return MOOSFail("\"Y_INIT\" needs to be a double");
+			y0 = Msg.GetDouble();
+		}
 	}
 
 	return true;
@@ -71,20 +84,6 @@ bool StateGen::OnNewMail(MOOSMSG_LIST &NewMail) {
 
 bool StateGen::OnStartUp() {
 
-	x0 = 0;	// default value for initial x coordinate
-	// here we extract a double from the configuration file
-	if(!m_MissionReader.GetConfigurationParam("x0",x0))
-	MOOSTrace("Warning parameter \"x0\" not specified. Using default of \"%f\"\n",x0);
-
-	y0 = -20; // default value for initial y coordinate
-	// here we extract a double from the configuration file
-	if(!m_MissionReader.GetConfigurationParam("y0",y0))
-	MOOSTrace("Warning parameter \"y0\" not specified. Using default of \"%f\"\n",y0);
-
-	// Set initial conditions for position
-	xd = x0;
-	yd = y0;
-
 	return true;
 }
 
@@ -96,6 +95,8 @@ bool StateGen::OnConnectToServer() {
 	Register("DESIRED_HEADING", 0);
 	Register("DESIRED_SPEED", 0);
 	Register("TIME", 0);
+	Register("X_INIT", 0);
+	Register("Y_INIT", 0);
 	return true;
 }
 
@@ -105,6 +106,13 @@ bool StateGen::OnConnectToServer() {
 // upon runtime
 
 bool StateGen::Iterate() {
+	
+	if (init == 0) {
+		xd = x0;
+		yd = y0;
+		init = 1;
+	}
+
 	// Convert from HelmIvP reference frame (z-down, N-zero), to model and controller reference frame (z-up, E-zero)
 	psid_refE = (90-psid)*PI/180;
 
@@ -139,8 +147,6 @@ bool StateGen::Iterate() {
 	Notify("Dyd", dyd);
 	Notify("Ddxd", ddxd);
 	Notify("Ddyd", ddyd);
-	Notify("X_INIT", x0);
-	Notify("Y_INIT", y0);
 	Notify("DESIRED_HEADING_REFE", psid_refE);
 
 	return true;

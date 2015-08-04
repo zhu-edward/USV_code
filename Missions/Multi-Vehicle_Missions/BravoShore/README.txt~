@@ -1,0 +1,3 @@
+This mission simulates a shoreside station with the USV on a different computer.
+
+To execute the mission, run ./launch.sh in this directory

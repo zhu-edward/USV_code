@@ -31,7 +31,6 @@ Vehicle::Vehicle() {
 	L=1;	//it should be the same as that in the controller
 	t=0;
 	t_r=0;
-	init = 0;
 	lat = 0;
 	lon = 0;
 }
@@ -63,18 +62,6 @@ bool Vehicle::OnNewMail(MOOSMSG_LIST &NewMail) {
 			if (!Msg.IsDouble())
 				return MOOSFail("\"TIME\" needs to be a double");
 			t = Msg.GetDouble();
-		}
-		else if (MOOSStrCmp(rMsg.GetKey(), "X_INIT")) {
-			CMOOSMsg &Msg = rMsg;
-			if (!Msg.IsDouble())
-				return MOOSFail("\"X_INIT\" needs to be a double");
-			x0 = Msg.GetDouble();
-		}
-		else if (MOOSStrCmp(rMsg.GetKey(), "Y_INIT")) {
-			CMOOSMsg &Msg = rMsg;
-			if (!Msg.IsDouble())
-				return MOOSFail("\"Y_INIT\" needs to be a double");
-			y0 = Msg.GetDouble();
 		}
 	}
 
@@ -141,6 +128,18 @@ bool Vehicle::OnStartUp() {
 	//here we extract a double from the configuration file
 	if(!m_MissionReader.GetConfigurationParam("longOrigin", longOrigin))
 		MOOSTrace("Warning parameter \"longOrigin\" not specified. Using default of \"%f\"\n",longOrigin);
+	x0 = 0;	// default value for initial x coordinate
+	// here we extract a double from the configuration file
+	if(!m_MissionReader.GetConfigurationParam("x0",x0))
+	MOOSTrace("Warning parameter \"x0\" not specified. Using default of \"%f\"\n",x0);
+
+	y0 = -20; // default value for initial y coordinate
+	// here we extract a double from the configuration file
+	if(!m_MissionReader.GetConfigurationParam("y0",y0))
+	MOOSTrace("Warning parameter \"y0\" not specified. Using default of \"%f\"\n",y0);
+
+	x = x0;
+	y = y0;
 
 	if(!geodesy.Initialise(latOrigin, longOrigin))
 		MOOSTrace("pVehicle: Geodesy init failed.\n");
@@ -155,8 +154,6 @@ bool Vehicle::OnStartUp() {
 bool Vehicle::OnConnectToServer() {
 	Register("DESIRED_PORTTHRUSTER",0);
 	Register("DESIRED_STARBOARDTHRUSTER",0);
-	Register("X_INIT",0);
-	Register("Y_INIT",0);
 	Register("TIME",0);
 	return true;
 }
@@ -167,12 +164,6 @@ bool Vehicle::OnConnectToServer() {
 // upon runtime
 
 bool Vehicle::Iterate() {
-	
-	if (init==0) {
-		x = x0;
-		y = y0;
-		init = 1;
-	}
 
 	dx=u*cos(psi)-v*sin(psi);
 	dy=u*sin(psi)+v*cos(psi);
@@ -220,6 +211,8 @@ bool Vehicle::Iterate() {
 	Notify("NAV_SPEED", u);
 	Notify("V", v);
 	Notify("R", r);
+	Notify("X_INIT", x0);
+	Notify("Y_INIT", y0);
 
 	return true;
 }

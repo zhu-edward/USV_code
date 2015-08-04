@@ -1,0 +1,203 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: USV.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9001
+Community  = Leader
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pTimer          @ NewConsole = false
+  Run = pStateGen       @ NewConsole = false
+  Run = pVehicle        @ NewConsole = false
+  Run = pController     @ NewConsole = false
+  Run = pNodeReporter	@ NewConsole = false
+  Run = pHelmIvP        @ NewConsole = false
+  Run = pShare          @ NewConsole = false
+  Run = pMOOSBridge		@ NewConsole = false
+  Run = uFldNodeBroker  @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = false
+  Run = pPatternDefinition @ NewConsole = false
+}
+
+//------------------------------------------
+// pStateGen configuration  block
+
+ProcessConfig = pStateGen
+{
+	AppTick   = 4
+	CommsTick = 4
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 20
+	CommsTick = 20
+}
+
+//------------------------------------------
+// pVehicle configuration  block
+
+ProcessConfig = pVehicle
+{
+	AppTick= 4
+	CommsTick = 4
+
+	VehicleName = Leader
+
+	x0 = 0
+	y0 = 0
+	InitialLocation_psi = 100
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+	LatOrigin  = 43.825300 
+	LongOrigin = -70.330400 
+}
+
+//------------------------------------------
+// pController configuration  block
+
+ProcessConfig = pController
+{
+	AppTick= 20
+	CommsTick = 20
+
+	L = 1
+
+	//Control parameters
+	Err_e_i = 400
+	Err_z_i = 400
+	K1_i = 0.1
+	K2_i = 0.1
+	K3_i = 0.1
+
+	K1_m = 1
+	K2_m = 1
+	K3_m = 1
+
+	Constant_epsilon = 1
+	M11b = 190+30	//estimate of m11
+	M22b = 240+20	//estimate of m22
+	M33b = 82+20	//estimate of m33
+	D11b = 75+20	//estimate of d11
+	D22b = 105-20	//estimate of d22
+	D33b = 55+20	//estimate of d33
+	Rho1 = 40	//bound of |m11-m11b|
+	Rho2 = 30	//bound of |m22-m22b|
+	Rho3 = 30	//bound of |m33-m33b|
+	Rho4 = 30	//bound of |d11-d11b|
+	Rho5 = 30	//bound of |d33-d33b|
+	Rho6 = 10	//bound of |D11|
+	Rho7 = 10	//bound of |D33|
+	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
+	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
+	Rho10 = 10	//bound of |D22*m33/m22|
+	Control_Saturation = 300  // Control saturation value
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  AppTick    = 2
+  CommsTick	 = 2
+
+  platform_type   = USV
+  platform_length = 4
+}
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  bhv_dir_not_found_ok = true
+
+  behaviors  = Leader.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:4:41
+}
+
+//--------------------------------------------------
+// uFldNodeBroker configuration block
+
+ProcessConfig = uFldNodeBroker
+{
+  AppTick   = 1
+  CommsTick = 1
+
+  TRY_SHORE_HOST = pshare_route=localhost:9300
+
+  BRIDGE = src=VIEW_POLYGON
+  BRIDGE = src=VIEW_CIRCLE
+  BRIDGE = src=VIEW_POINT
+  BRIDGE = src=VIEW_SEGLIST
+  BRIDGE = src=APPCAST
+  BRIDGE = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
+  BRIDGE = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
+}
+
+//---------------------------------------------------------
+// pShare Config Block
+
+ProcessConfig = pShare
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  input = route =  localhost:9301
+}
+
+//--------------------------------------------------
+// pHostInfo configuration block from plugin
+
+ProcessConfig = pHostInfo
+{
+  AppTick 	= 1
+  CommsTick 	= 1
+
+  DEFAULT_HOSTIP = localhost
+}
+
+//------------------------------------------
+// pPatternDefinition
+
+ProcessConfig = pPatternDefinition
+{
+  AppTick = 1
+  CommsTick = 1
+
+  Height = 20
+  Base = 40
+}
+
+//------------------------------------------
+// pMOOSBridge
+
+ProcessConfig = pMOOSBridge
+{
+	AppTick    = 2
+	CommsTick  = 2
+
+	SHARE=[e1out, e2out, DESIRED_SPEED]->Follower1@localhost:9002 [e0_X, e0_Y, DESIRED_SPEED]
+}

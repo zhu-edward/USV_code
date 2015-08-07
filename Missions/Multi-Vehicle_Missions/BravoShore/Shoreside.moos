@@ -87,7 +87,6 @@ ProcessConfig = pShare
   CommsTick  = 2
 
   input = route =  localhost:9300
-  output = src_name=Y, dest_name=B, route=192.168.1.69:9301
 }
 
 //--------------------------------------------------

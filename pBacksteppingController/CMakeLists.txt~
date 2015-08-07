@@ -5,10 +5,10 @@ if(COMMAND cmake_policy)
 endif(COMMAND cmake_policy)
 
 #this builds an example program
-set(EXECNAME pController)
+set(EXECNAME pBacksteppingController)
 
 #what files are needed?
-SET(SRCS controller.cpp main.cpp)
+SET(SRCS backsteppingcontroller.cpp main.cpp)
 
 include_directories(
 ${MOOS_INCLUDE_DIRS} 

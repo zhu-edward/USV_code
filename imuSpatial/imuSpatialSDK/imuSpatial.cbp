@@ -1,0 +1,1214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="imuSpatial" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\MOOS\;CMake Files\..\..\MOOS\MOOSCore\;CMake Files\..\..\MOOS\MOOSGeodesy\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\..\usr\local\share\cmake\;CMake Files\..\..\..\..\..\usr\local\share\cmake\CommonSense\;CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\;CMake Files\..\..\..\..\..\usr\local\share\cmake\Prog\;CMake Files\..\..\..\..\..\usr\share\;CMake Files\..\..\..\..\..\usr\share\pcl-1.7\;CMake Files\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\;CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\CMake\;CMake Files\lib_logic\;CMake Files\lib_logic\\;CMake Files\lib_mbutil\;CMake Files\lib_mbutil\\;CMake Files\lib_genutil\;CMake Files\lib_genutil\\;CMake Files\lib_ufield\;CMake Files\lib_ufield\\;CMake Files\lib_navplot\;CMake Files\lib_navplot\\;CMake Files\lib_geometry\;CMake Files\lib_geometry\\;CMake Files\lib_ivpbuild\;CMake Files\lib_ivpbuild\\;CMake Files\lib_ufld_hazards\;CMake Files\lib_ufld_hazards\\;CMake Files\lib_helmivp\;CMake Files\lib_helmivp\\;CMake Files\lib_behaviors-marine\;CMake Files\lib_behaviors-marine\\;CMake Files\lib_bhvutil\;CMake Files\lib_bhvutil\\;CMake Files\lib_behaviors\;CMake Files\lib_behaviors\\;CMake Files\lib_apputil\;CMake Files\lib_apputil\\;CMake Files\lib_marineview\;CMake Files\lib_marineview\\;CMake Files\lib_ulogview\;CMake Files\lib_ulogview\\;CMake Files\lib_ipfview\;CMake Files\lib_ipfview\\;CMake Files\lib_ivpcore\;CMake Files\lib_ivpcore\\;CMake Files\lib_contacts\;CMake Files\lib_contacts\\;CMake Files\lib_logutils\;CMake Files\lib_logutils\\;CMake Files\lib_manifest\;CMake Files\lib_manifest\\;CMake Files\app_alogscan\;CMake Files\app_aloggrep\;CMake Files\app_alogrm\;CMake Files\app_alogclip\;CMake Files\app_aloghelm\;CMake Files\app_alogcheck\;CMake Files\app_nsplug\;CMake Files\app_mandler\;CMake Files\app_gen_hazards\;CMake Files\gemini720i\;CMake Files\imuGX3\;CMake Files\imuSpatial\;CMake Files\imuSpatial\imuSpatialSDK\;CMake Files\pEchoVar\;CMake Files\pXRelay\;CMake Files\pHelmIvP\;CMake Files\pMarinePID\;CMake Files\pBasicContactMgr\;CMake Files\pNodeReporter\;CMake Files\pSafetyRetreat\;CMake Files\pTestClassifyQueue\;CMake Files\uFldPathCheck\;CMake Files\uFldShoreBroker\;CMake Files\uFldMessageHandler\;CMake Files\uFldNodeBroker\;CMake Files\uFldScope\;CMake Files\uFldNodeComms\;CMake Files\uFldBeaconRangeSensor\;CMake Files\uFldContactRangeSensor\;CMake Files\uFldHazardSensor\;CMake Files\uFldHazardMgr\;CMake Files\uFldHazardMetric\;CMake Files\uFldGenericSensor\;CMake Files\pSearchGrid\;CMake Files\uTimerScript\;CMake Files\uHelmScope\;CMake Files\uProcessWatch\;CMake Files\uSimCurrent\;CMake Files\uSimMarine\;CMake Files\uTermCommand\;CMake Files\uXMS\;CMake Files\uMAC\;CMake Files\uPokeDB\;CMake Files\pHostInfo\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="packet_example">
+         <Option output="/home/frank/moos-ivp/bin/packet_example" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/frank/moos-ivp/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DASYNCHRONOUS_CLIENT" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Comms/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/AppCasting/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/PocoBits/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/getpot/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Utils/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSGeodesy/libMOOSGeodesy/include" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_apputil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_behaviors" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_bhvutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_contacts" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_genutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_geometry" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_helmivp" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ivpbuild" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ivpcore" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_logic" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_logutils" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_manifest" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_mbutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ufield" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 packet_example" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="packet_example/fast">
+         <Option output="/home/frank/moos-ivp/bin/packet_example" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/frank/moos-ivp/bin" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-DASYNCHRONOUS_CLIENT" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/App/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Comms/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/AppCasting/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/PocoBits/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Thirdparty/getpot/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/Utils/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSCore/Core/libMOOS/include" />
+            <Add directory="/home/frank/moos-ivp/MOOS/MOOSGeodesy/libMOOSGeodesy/include" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_apputil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_behaviors" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_bhvutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_contacts" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_genutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_geometry" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_helmivp" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ivpbuild" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ivpcore" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_logic" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_logutils" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_manifest" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_mbutil" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ufield" />
+            <Add directory="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 packet_example/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/an_packet_protocol.c">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/packet_example.c">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/rs232/rs232.c">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/spatial_packets.c">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/an_packet_protocol.h">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/rs232/rs232.h">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/spatial_packets.h">
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../MOOS/MOOSCore/MOOSConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\MOOS\MOOSCore\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../MOOS/MOOSCore/MOOSConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\MOOS\MOOSCore\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../MOOS/MOOSCore/UseMOOS.cmake">
+          <Option virtualFolder="CMake Files\..\..\MOOS\MOOSCore\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../MOOS/MOOSGeodesy/MOOSGeodesyConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\MOOS\MOOSGeodesy\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../MOOS/MOOSGeodesy/UseMOOSGeodesy.cmake">
+          <Option virtualFolder="CMake Files\..\..\MOOS\MOOSGeodesy\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CommonSenseSetup.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CommonSenseOptions.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/ProgSetup.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/ProgOptions.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CommonSense/CommonSenseConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CommonSense\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSenseDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSenseRootDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/ProgDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/ProgCMakeFunctions.txt">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/PrecompiledHeader.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/GTestFunctions.txt">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSenseCoreDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSensePCLDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSenseDriversDepends.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/CMakeConfig/CommonSenseCMakeFunctions.txt">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\CMakeConfig\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/local/share/cmake/Prog/ProgConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\share\cmake\Prog\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/share/pcl-1.7/PCLConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\share\pcl-1.7\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/share/pcl-1.7/PCLConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\share\pcl-1.7\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKTargets.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKTargets-debug.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigVersion.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfig.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/VTKConfigQt.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/UseVTK.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/../../../../../usr/lib/vtk-5.8/CMake/vtkMakeInstantiator.cmake">
+          <Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\vtk-5.8\CMake\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_logic\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//LogicUtils.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//LogicCondition.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//ConditionalParam.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//ParseNode.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//InfoBuffer.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logic//LogicBuffer.h">
+          <Option virtualFolder="CMake Files\lib_logic\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_mbutil\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//StringNode.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//FileBuffer.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//StringTree.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//FColorMap.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//VarDataPair.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//MBTimer.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//ReleaseInfo.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//ColorPack.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//ColorParse.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//Figlog.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//TermUtils.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//ScopeEntry.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_mbutil//MBUtils.h">
+          <Option virtualFolder="CMake Files\lib_mbutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_genutil\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil//MOOSAppRunnerThread.h">
+          <Option virtualFolder="CMake Files\lib_genutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil//MOOS_event.h">
+          <Option virtualFolder="CMake Files\lib_genutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil//fileutil.h">
+          <Option virtualFolder="CMake Files\lib_genutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil//stringutil.h">
+          <Option virtualFolder="CMake Files\lib_genutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_genutil//Threadsafe_pipe.h">
+          <Option virtualFolder="CMake Files\lib_genutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_ufield\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield//HostRecordUtils.h">
+          <Option virtualFolder="CMake Files\lib_ufield\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield//NodeMessageUtils.h">
+          <Option virtualFolder="CMake Files\lib_ufield\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield//UFieldUtils.h">
+          <Option virtualFolder="CMake Files\lib_ufield\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield//HostRecord.h">
+          <Option virtualFolder="CMake Files\lib_ufield\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufield//NodeMessage.h">
+          <Option virtualFolder="CMake Files\lib_ufield\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//Populator_LogPlots.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//VPlugPlot.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//IPF_Plot.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//Populator_VPlugPlots.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//Populator_IPF_Plot.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//Populator_HelmPlots.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//ULV_TimeStamp.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//LogPlot.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_navplot//HelmPlot.h">
+          <Option virtualFolder="CMake Files\lib_navplot\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_geometry\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYPoint.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYRangePulse.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYHexagon.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYBuildUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYObject.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYConvexGrid.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//ArtifactUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYCommsPulse.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYSegList.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//LinearExtrapolator.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYSquare.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//CircularUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//IO_GeomUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//GeomUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsPoly.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYPolygon.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYCircle.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsCommsPulse.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYEncoders.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsVector.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//CurrentField.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYArtifactGrid.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsConvexGrid.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYPatternBlock.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//CPA_Utils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYSegment.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsRangePulse.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFieldGenerator.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYGrid.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsMarker.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//CPAEngine.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsSegl.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYArc.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//AngleUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYHexGrid.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYMarker.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsCircle.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYVector.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//PathUtils.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_geometry//XYFormatUtilsPoint.h">
+          <Option virtualFolder="CMake Files\lib_geometry\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_Rings.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//ZAIC_HEQ.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_SCALAR.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//RT_Smart.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//RT_AutoPeak.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//IO_Utilities.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//DemuxUnit.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_Ring.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//Regressor.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_Quadratic.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//PQueue.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//OF_Coupler.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//OF_Reflector.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_MGaussian.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//Demuxer.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//OF_Rater.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//RT_Directed.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//DemuxedResult.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_Linear.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//FunctionEncoderMK.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//BuildUtils.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//ZAIC_Vector.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//ZAIC_LEQ.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//ZAIC_PEAK.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//FunctionEncoder.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//RT_Uniform.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF_Gaussian.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//AOF.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpbuild//ZAIC_HLEQ.h">
+          <Option virtualFolder="CMake Files\lib_ivpbuild\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//ClassifyEntry.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//XYFormatUtilsHazardSet.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//ClassifyQueue.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//XYHazardSet.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//XYFormatUtilsHazard.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//XYHazard.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ufld_hazards//XYHazardRepEval.h">
+          <Option virtualFolder="CMake Files\lib_ufld_hazards\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_helmivp\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//HelmReportUtils.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//ModeEntry.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//AVD_Table.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//ModeSet.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//Populator_BehaviorSet.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BehaviorSpec.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BehaviorRegistry.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BFactoryStatic.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BehaviorSet.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BFactoryDynamic.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//SpecBuild.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BehaviorReport.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//BehaviorSetEntry.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//HelmEngine.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_helmivp//HelmReport.h">
+          <Option virtualFolder="CMake Files\lib_helmivp\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_AvoidCollision.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_RubberBand.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_AbortToPoint.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_HSLine.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_ConstantDepth.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_BearingLine.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_ConstantHeading.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_AvoidObstacles.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Waypoint.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_HAttractor.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_PeriodicSpeed.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_RangePulse.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Hysteresis.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_GoToDepth.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_MaintainHeading.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_HeadingHysteresis.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_TestFailure.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_CutRange.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_HeadingBias.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_MemoryTurnLimit.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_OpRegion.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_ConstantSpeed.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_StationKeep.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Attractor.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_TimeOut.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Trail.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Loiter.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_PeriodicSurface.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_HeadingChange.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_MinAltitudeX.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Timer.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_Shadow.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors-marine//BHV_RStationKeep.h">
+          <Option virtualFolder="CMake Files\lib_behaviors-marine\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_bhvutil\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_Shadow.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_AttractorCPA.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_CutRangeCPA.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_AvoidCollisionDepth.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_AvoidObstacles.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_Waypoint.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//AOF_AvoidCollision.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//LoiterEngine.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_bhvutil//WaypointEngine.h">
+          <Option virtualFolder="CMake Files\lib_bhvutil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_behaviors\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors//LifeEventHistory.h">
+          <Option virtualFolder="CMake Files\lib_behaviors\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors//IvPBehavior.h">
+          <Option virtualFolder="CMake Files\lib_behaviors\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors//LifeEvent.h">
+          <Option virtualFolder="CMake Files\lib_behaviors\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_behaviors//IvPContactBehavior.h">
+          <Option virtualFolder="CMake Files\lib_behaviors\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_apputil\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//AppCastRepo.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//AppCastSet.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//ACBlock.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//MOOSAppWrapper.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//PseudoMOOSApp.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//AppCastTree.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//ACTable.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//AppCastingMOOSAppBeta.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_apputil//AppMsg.h">
+          <Option virtualFolder="CMake Files\lib_apputil\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Ship.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_EField.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Hold_Browser.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Diamond.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Square.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_GeoShapesMap.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Menu_Button.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//ColoredPoint.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Circle.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Triangle.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//OpAreaSpec.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VehicleSet.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Fl_Hold_Browser.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MarineVehiGUI.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_AppCastSettings.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//BackImg.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Button.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Gateway.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MarineViewer.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_VehiSettings.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_GeoShapes.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//BearingLine.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_ThinAUV.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Glider.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//glext.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Output.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MarineGUI.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_AUV.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Kayak.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_DropPoints.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//VPlug_GeoSettings.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//LMV_Utils.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//MY_Repeat_Button.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_marineview//Shape_Kelp.h">
+          <Option virtualFolder="CMake Files\lib_marineview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//StringTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//IPF_TPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//VarTPlotSet.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//PostingBuffer.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//Populator_IPF_TPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//IterTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//TimePlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//HelmTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//StringTPlotSet.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//Populator_LogTPlots.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//LogTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//Populator_VPlugTPlots.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//ULV_TimeStamp.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//VPlugTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//VarTPlot.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ulogview//GeneralLauncher.h">
+          <Option virtualFolder="CMake Files\lib_ulogview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//Quad3D.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//IPF_Entry.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//QuadSet.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//IPFViewUtils.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//Common_IPFViewer.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//IPF_BundleSeries.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ipfview//IPF_Bundle.h">
+          <Option virtualFolder="CMake Files\lib_ipfview\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_ivpcore\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPProblem.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPGrid.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//CompactorNull.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPDomain.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPBox.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//BoxSet.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPFunction.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//Compactor.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//IvPProblem_v3.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//PDMap.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//Problem.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_ivpcore//BoxSetNode.h">
+          <Option virtualFolder="CMake Files\lib_ivpcore\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_contacts/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_contacts\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_contacts//NodeRecordUtils.h">
+          <Option virtualFolder="CMake Files\lib_contacts\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_contacts//NodeRecord.h">
+          <Option virtualFolder="CMake Files\lib_contacts\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logutils/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_logutils\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logutils//LogUtils.h">
+          <Option virtualFolder="CMake Files\lib_logutils\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logutils//ScanReport.h">
+          <Option virtualFolder="CMake Files\lib_logutils\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logutils//ALogScanner.h">
+          <Option virtualFolder="CMake Files\lib_logutils\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_logutils//ALogEntry.h">
+          <Option virtualFolder="CMake Files\lib_logutils\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_manifest/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\lib_manifest\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_manifest//Manifest.h">
+          <Option virtualFolder="CMake Files\lib_manifest\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_manifest//Populator_Manifest.h">
+          <Option virtualFolder="CMake Files\lib_manifest\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/lib_manifest//ManifestToWikiPage.h">
+          <Option virtualFolder="CMake Files\lib_manifest\\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_alogscan/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_alogscan\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_aloggrep/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_aloggrep\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_alogrm/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_alogrm\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_alogclip/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_alogclip\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_aloghelm/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_aloghelm\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_alogcheck/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_alogcheck\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_nsplug/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_nsplug\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_mandler/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_mandler\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/app_gen_hazards/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\app_gen_hazards\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/gemini720i/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\gemini720i\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuGX3/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\imuGX3\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\imuSpatial\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\imuSpatial\imuSpatialSDK\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/imuSpatial/imuSpatialSDK/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\imuSpatial\imuSpatialSDK\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pEchoVar/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pEchoVar\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pXRelay/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pXRelay\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pHelmIvP/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pHelmIvP\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pMarinePID/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pMarinePID\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pBasicContactMgr/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pBasicContactMgr\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pNodeReporter/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pNodeReporter\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pSafetyRetreat/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pSafetyRetreat\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pTestClassifyQueue/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pTestClassifyQueue\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldPathCheck/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldPathCheck\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldShoreBroker/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldShoreBroker\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldMessageHandler/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldMessageHandler\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldNodeBroker/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldNodeBroker\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldScope/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldScope\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldNodeComms/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldNodeComms\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldBeaconRangeSensor/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldBeaconRangeSensor\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldContactRangeSensor/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldContactRangeSensor\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldHazardSensor/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldHazardSensor\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldHazardMgr/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldHazardMgr\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldHazardMetric/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldHazardMetric\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uFldGenericSensor/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uFldGenericSensor\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pSearchGrid/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pSearchGrid\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uTimerScript/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uTimerScript\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uHelmScope/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uHelmScope\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uProcessWatch/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uProcessWatch\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uSimCurrent/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uSimCurrent\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uSimMarine/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uSimMarine\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uTermCommand/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uTermCommand\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uXMS/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uXMS\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uMAC/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uMAC\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/uPokeDB/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\uPokeDB\" />
+      </Unit>
+      <Unit filename="/home/frank/moos-ivp/ivp/src/pHostInfo/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\pHostInfo\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

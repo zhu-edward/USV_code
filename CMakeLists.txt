@@ -49,6 +49,8 @@ add_subdirectory(pController)
 add_subdirectory(pThrustSim)
 add_subdirectory(pPatternDefinition)
 add_subdirectory(pBacksteppingController)
+add_subdirectory(iTorqeedo)
+add_subdirectory(pJoystick)
 
 #add_subdirectory(EX1000)
 #add_subdirectory(EX1010)

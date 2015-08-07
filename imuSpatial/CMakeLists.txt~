@@ -1,0 +1,82 @@
+cmake_minimum_required(VERSION 2.8)
+
+# Set System Specific Libraries
+if (${WIN32})
+  SET(SYSTEM_LIBS
+    wsock32)
+else (${WIN32})
+  SET(SYSTEM_LIBS
+    m
+    pthread)
+endif (${WIN32})
+
+message (STATUS ${CMAKE_INSTALL_PREFIX})
+message (STATUS ${SYSTEM_LIBS})
+#add_subdirectory(imuSpatialSDK)
+
+SET(SRC
+   main.cpp
+   imuSpatial_MOOSApp.cpp
+   imuSpatialSDK/an_packet_protocol.c
+   imuSpatialSDK/spatial_packets.c
+   imuSpatialSDK/rs232/rs232.c
+)
+
+# Include the ivp include and library directories
+set(IVP_INC_DIR ../../../../include/ivp CACHE STRING "The ivp include directory")
+set(IVP_LIB_DIR ../../../../lib CACHE STRING "The ivp library directory")
+get_filename_component(IVP_INC_DIR_ABS ${IVP_INC_DIR} ABSOLUTE)
+get_filename_component(IVP_LIB_DIR_ABS ${IVP_LIB_DIR} ABSOLUTE)
+include_directories(${IVP_INC_DIR_ABS})
+link_directories(${IVP_LIB_DIR_ABS})
+
+message (STATUS ${IVP_INC_DIR_ABS})
+message (STATUS ${IVP_LIB_DIR_ABS})
+#find_package(Boost COMPONENTS system)
+#find_package(CommonSense)
+find_package(MOOS)
+find_package(MOOSGeodesy)
+
+if (${MOOS_FOUND})
+    message (STATUS "moos has been found!")
+endif (${MOOS_FOUND})
+
+if (${MOOSGeodesy_FOUND})
+    message (STATUS "MOOSGeodesy has been found!")
+endif (${MOOSGeodesy_FOUND})
+
+message (STATUS ${MOOS_LIBRARIES})
+include_directories(${MOOS_INCLUDE_DIRS} ${MOOSGeodesy_INCLUDE_DIRS})
+message (STATUS ${MOOS_INCLUDE_DIRS})
+
+link_directories(${MOOSGeodesy_LIBRARY_PATH})
+
+
+#include_directories(${Boost_INCLUDE_DIRS})
+#include_directories(${COMMONSENSE_INCLUDE_DIRS})
+
+#message (STATUS ${Boost_INCLUDE_DIRS})
+
+ADD_EXECUTABLE(imuSpatial ${SRC})
+
+
+TARGET_LINK_LIBRARIES(imuSpatial 
+  MOOS
+  ${MOOS_LIBRARIES}
+  ${MOOSGeodesy_LIBRARIES}
+#  MOOSGen
+#  MOOSUtility
+#  contacts
+#  geometry 
+ mbutil
+#${Boost_LIBRARIES}
+  ${SYSTEM_LIBS}
+#${COMMONSENSE_LIBRARIES}
+)
+
+# Install Targets
+INSTALL(TARGETS imuSpatial
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+)

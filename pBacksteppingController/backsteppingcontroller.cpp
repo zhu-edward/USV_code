@@ -46,16 +46,18 @@ BacksteppingController::BacksteppingController() {
 	connections = 0;
 
 	P1_X = 0;
-	P1_Y = 0;
-	P2_X = 0;
+	P1_Y = 20;
+	P2_X = -20;
 	P2_Y = 0;
-	P3_X = 0;
+	P3_X = 20;
 	P3_Y = 0;
 
 	a0 = 0;
 	a1 = 0;
 	a2 = 0;
 	a3 = 0;
+
+	IMU_ready = 0;
 }	
 
 //--------------------------------------------------------------------
@@ -155,43 +157,6 @@ bool BacksteppingController::OnNewMail(MOOSMSG_LIST &NewMail) {
 			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
 			//if you want to see all details in Msg, you can print a message by
 			//Msg.Trace();
-		}
-		else if(MOOSStrCmp(rMsg.GetKey(),"pattern"))
-		{
-			//this message is about something called "Pattern"
-			CMOOSMsg &Msg1 = rMsg;
-			if(!Msg1.IsString())
-				return MOOSFail("Ouch - was promised \"pattern\" would be a string");
-
-			// Parse the pattern definition string to find the coordinates
-			pattern = Msg1.GetString();
-
-			char newBuf[10] = {'0','0','0','0','0','0','0','0','0','0'};
-
-			Header1XPos = pattern.find("P1_X");
-			Header1YPos = pattern.find("P1_Y");
-			Header2XPos = pattern.find("P2_X");
-			Header2YPos = pattern.find("P2_Y");
-			Header3XPos = pattern.find("P3_X");
-			Header3YPos = pattern.find("P3_Y");
-
-			pattern.copy(buffer, (Header1YPos-1)-(Header1XPos+5), Header1XPos+5);
-			P1_X = atof(buffer);
-			strcpy(buffer, newBuf);
-			pattern.copy(buffer, (Header2XPos-1)-(Header1YPos+5), Header1YPos+5);
-			P1_Y = atof(buffer);
-			strcpy(buffer, newBuf);
-			pattern.copy(buffer, (Header2YPos-1)-(Header2XPos+5), Header2XPos+5);
-			P2_X = atof(buffer);
-			strcpy(buffer, newBuf);
-			pattern.copy(buffer, (Header3XPos-1)-(Header2YPos+5), Header2YPos+5);
-			P2_Y = atof(buffer);
-			strcpy(buffer, newBuf);
-			pattern.copy(buffer, (Header3YPos-1)-(Header3XPos+5), Header3XPos+5);
-			P3_X = atof(buffer);
-			strcpy(buffer, newBuf);
-			pattern.copy(buffer, pattern.length()-(Header3YPos+5), Header3YPos+5);
-			P3_Y = atof(buffer);
 		}
 		else if(MOOSStrCmp(rMsg.GetKey(),"DESIRED_SPEED"))
 		{
@@ -325,6 +290,18 @@ bool BacksteppingController::OnNewMail(MOOSMSG_LIST &NewMail) {
 			//if you want to see all details in Msg, you can print a message by
 			//Msg.Trace();
 		}
+		else if(MOOSStrCmp(rMsg.GetKey(),"IMU_GPS_Stable"))
+		{
+			//this message is about something called "IMU_GPS_Stable"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"IMU_GPS_Stable\" would be a double");
+
+			IMU_ready = Msg1.GetDouble();
+			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
 	}
 	return true;
 }
@@ -445,7 +422,7 @@ bool BacksteppingController::OnConnectToServer() {
 	Register("e2_Y", 0);
 	Register("e3_X", 0);
 	Register("e3_Y", 0);
-			
+	Register("IMU_GPS_Stable", 0);
 
 	return true;
 }
@@ -457,110 +434,122 @@ bool BacksteppingController::OnConnectToServer() {
 
 bool BacksteppingController::Iterate() {
 	
-	h = exp(-0.1*t);
+	if (IMU_ready) {
 
-	switch(vehicleIdent) {
-		case 1:
-			a0 = 0.5;
-			a2 = 0.25;
-			a3 = 0.25;
-			zeta1 = a0*e0_X+a2*e2_X+a3*e3_X;
-			zeta2 = a0*e0_Y+a2*e2_Y+a3*e3_Y;
-			e1out = x-P1_X;
-			e2out = y-P1_Y;
-			e1s = e1out-zeta1;
-			e2s = e2out-zeta2;
-			break;
-		case 2:
-			a1 = 1;
-			zeta1 = a1*e1_X;
-			zeta2 = a1*e1_Y;
-			e1out = x-P2_X;
-			e2out = y-P2_Y;
-			e1s = e1out-zeta1;
-			e2s = e2out-zeta2;
-			break;
-		case 3:
-			a1 = 1;
-			zeta1 = a1*e1_X;
-			zeta2 = a1*e1_Y;
-			e1out = x-P3_X;
-			e2out = y-P3_Y;
-			e1s = e1out-zeta1;
-			e2s = e2out-zeta2;
-			break;
+		h = exp(-0.1*t);
+
+		switch(vehicleIdent) {
+			case 1:
+				a0 = 0.5;
+				a2 = 0.25;
+				a3 = 0.25;
+				zeta1 = a0*e0_X+a2*e2_X+a3*e3_X;
+				zeta2 = a0*e0_Y+a2*e2_Y+a3*e3_Y;
+				e1out = x-P1_X;
+				e2out = y-P1_Y;
+				e1s = e1out-zeta1;
+				e2s = e2out-zeta2;
+				break;
+			case 2:
+				a1 = 1;
+				zeta1 = a1*e1_X;
+				zeta2 = a1*e1_Y;
+				e1out = x-P2_X;
+				e2out = y-P2_Y;
+				e1s = e1out-zeta1;
+				e2s = e2out-zeta2;
+				break;
+			case 3:
+				a1 = 1;
+				zeta1 = a1*e1_X;
+				zeta2 = a1*e1_Y;
+				e1out = x-P3_X;
+				e2out = y-P3_Y;
+				e1s = e1out-zeta1;
+				e2s = e2out-zeta2;
+				break;
+		}
+		
+		eta1 = -K1*e1s-rhox*(e1s/sqrt(e1s*e1s+h));
+		eta2 = -K2*e2s-rhoy*(e2s/sqrt(e2s*e2s+h));
+		eta3 = sqrt(eta1*eta1+eta2*eta2);
+		eta4 = atan2(eta2,eta1);
+		if (eta4 < 0) {
+			eta4 = eta4+2*PI;
+		}
+
+		deta3f = -(eta3f-eta3)/epsilon;
+		angleChange = eta4f-eta4;
+		if (angleChange < -PI) {
+			angleChange = angleChange+2*PI;
+		}
+		else if (angleChange > PI) {
+			angleChange = angleChange-2*PI;
+		}
+		deta4f = -(angleChange)/epsilon;
+
+		z1 = u-eta3;
+		z2 = psi-eta4;
+		if (z2 < -PI) {
+			z2 = z2+2*PI;
+		}
+		else if (z2 > PI) {
+			z2 = z2-2*PI;
+		}
+
+		eta5 = -K4*z2+deta4f-e1s*u*cos(eta4)*(cos(z2)-1)/(z2+epsilon)+e1s*u*sin(eta4)*sin(z2)/(z2+epsilon)-e2s*u*sin(eta4)*(cos(z2)-1)/(z2+epsilon)-e2s*u*cos(eta4)*sin(z2)/(z2+epsilon);
+		if (abs(z2) < (PI/180)) {
+			eta5 = 0;
+		}
+		deta5f = -(eta5f-eta5)/epsilon;
+
+		z3 = r-eta5;
+
+		delta1 = -K3*z1-e1s*cos(eta4)-e2s*sin(eta4)+m1e*deta3f-m2e*v*r+d1e*u-(rho1*abs(deta3f)+rho2*abs(v*r)+rho4*abs(u)+rho6)*copysign(1.0,z1);
+		delta2 = -K5*z3-z2-(m1e-m2e)*u*v+d3e*r+m3e*deta5f-((rho1+rho2)*abs(u*v)+rho5*abs(r)+rho3*abs(deta5f)+rho7)*copysign(1.0,z3);
+
+		DESIRED_PORTTHRUSTER = (delta1-delta2/L)/2;
+		DESIRED_STARBOARDTHRUSTER = (delta1+delta2/L)/2;
+
+		if (abs(ud) < 0.01) {
+			DESIRED_PORTTHRUSTER = 0;
+			DESIRED_STARBOARDTHRUSTER = 0;
+		}
+		
+		if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
+			DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
+		}
+		
+		if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
+			DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
+		}
+
+		dT = t-lastTime;
+
+		eta3f = eta3f+deta3f*dT;
+		eta4f = eta4f+deta4f*dT;
+		eta5f = eta5f+deta5f*dT;
+
+		lastTime = t;
 	}
-	
-	eta1 = -K1*e1s-rhox*(e1s/sqrt(e1s*e1s+h));
-	eta2 = -K2*e2s-rhoy*(e2s/sqrt(e2s*e2s+h));
-	eta3 = sqrt(eta1*eta1+eta2*eta2);
-	eta4 = atan2(eta2,eta1);
-	if (eta4 < 0) {
-		eta4 = eta4+2*PI;
-	}
-
-	deta3f = -(eta3f-eta3)/epsilon;
-	angleChange = eta4f-eta4;
-	if (angleChange < -PI) {
-		angleChange = angleChange+2*PI;
-	}
-	else if (angleChange > PI) {
-		angleChange = angleChange-2*PI;
-	}
-	deta4f = -(angleChange)/epsilon;
-
-	z1 = u-eta3;
-	z2 = psi-eta4;
-	if (z2 < -PI) {
-		z2 = z2+2*PI;
-	}
-	else if (z2 > PI) {
-		z2 = z2-2*PI;
-	}
-
-	eta5 = -K4*z2+deta4f-e1s*u*cos(eta4)*(cos(z2)-1)/(z2+epsilon)+e1s*u*sin(eta4)*sin(z2)/(z2+epsilon)-e2s*u*sin(eta4)*(cos(z2)-1)/(z2+epsilon)-e2s*u*cos(eta4)*sin(z2)/(z2+epsilon);
-	if (abs(z2) < (PI/180)) {
-		eta5 = 0;
-	}
-	deta5f = -(eta5f-eta5)/epsilon;
-
-	z3 = r-eta5;
-
-	delta1 = -K3*z1-e1s*cos(eta4)-e2s*sin(eta4)+m1e*deta3f-m2e*v*r+d1e*u-(rho1*abs(deta3f)+rho2*abs(v*r)+rho4*abs(u)+rho6)*copysign(1.0,z1);
-	delta2 = -K5*z3-z2-(m1e-m2e)*u*v+d3e*r+m3e*deta5f-((rho1+rho2)*abs(u*v)+rho5*abs(r)+rho3*abs(deta5f)+rho7)*copysign(1.0,z3);
-
-	DESIRED_PORTTHRUSTER = (delta1-delta2/L)/2;
-	DESIRED_STARBOARDTHRUSTER = (delta1+delta2/L)/2;
-
-	if (abs(ud) < 0.01) {
+	else {
 		DESIRED_PORTTHRUSTER = 0;
 		DESIRED_STARBOARDTHRUSTER = 0;
 	}
-	
-	if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
-		DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
-	}
-	
-	if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
-		DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
-	}
 
-	dT = t-lastTime;
-
-	eta3f = eta3f+deta3f*dT;
-	eta4f = eta4f+deta4f*dT;
-	eta5f = eta5f+deta5f*dT;
-
-	lastTime = t;
+	portThrustCMD = DESIRED_PORTTHRUSTER*1000/Fmax;
+	stdbThrustCMD = DESIRED_STARBOARDTHRUSTER*1000/Fmax;
 
 	sprintf(debugBuf, "e1:%.2f,e2:%.2f,eta1:%.2f,eta2:%.2f,eta3:%.2f,eta4:%.2f,eta5:%.2f,eta3f:%.2f,eta4f:%.2f,eta5f:%.2f,z1:%.2f,z2:%.2f,z3:%.2f", e1s, e2s, eta1, eta2, eta3, eta4, eta5, eta3f, eta4f, eta5f, z1, z2, z3);
 	debug = debugBuf;
 
-	Notify("DESIRED_PORTTHRUSTER", DESIRED_PORTTHRUSTER);
-	Notify("DESIRED_STARBOARDTHRUSTER", DESIRED_STARBOARDTHRUSTER);
 	Notify("e1out", e1out);
 	Notify("e2out", e2out);
 	Notify("DEBUG", debug);
+	Notify("DESIRED_PORTTHRUSTER", DESIRED_PORTTHRUSTER);
+	Notify("DESIRED_STARBOARDTHRUSTER", DESIRED_STARBOARDTHRUSTER);
+	Notify("DESIRED_PORTTHRUSTER_CMD", portThrustCMD);
+	Notify("DESIRED_STARBOARDTHRUSTER_CMD", stdbThrustCMD);
 
 	return true;
 

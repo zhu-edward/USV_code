@@ -24,7 +24,7 @@ ProcessConfig = ANTLER
   Run = pShare          @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
-  Run = pPatternDefinition @ NewConsole = false
+  //Run = pPatternDefinition @ NewConsole = false
   Run = pMOOSBridge		@ NewConsole = false
 }
 
@@ -95,7 +95,7 @@ ProcessConfig = pBacksteppingController
 	K5 = 3
 
 	VehicleIdentity = 2
-	Fmax = 300
+	Control_Saturation = 140
 
 	// Initial conditions
 	eta3f = 1

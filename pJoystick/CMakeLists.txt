@@ -1,0 +1,22 @@
+PROJECT(pJoystick)
+
+#what files are needed?
+FILE(GLOB JOYSTICK_SRC Joystick.* JoystickApp.* Joystick_main.cpp ${RESOURCES})
+
+FILE(GLOB JOYSTICK_MAPPER_SRC JoystickMapper* ${RESOURCES})
+
+# Add executable 
+ADD_EXECUTABLE( pJoystick ${JOYSTICK_SRC})
+ADD_EXECUTABLE( pJoystickMapper ${JOYSTICK_MAPPER_SRC})
+
+
+# indicate how to link
+TARGET_LINK_LIBRARIES(pJoystick ${MOOSLIBS} ${PLATFORM_LIBS} ${MOOS_LIBRARIES}
+${MOOS_DEPEND_LIBRARIES}
+mbutil)
+TARGET_LINK_LIBRARIES(pJoystickMapper ${MOOSLIBS} ${PLATFORM_LIBS} ${MOOS_LIBRARIES}
+${MOOS_DEPEND_LIBRARIES}
+mbutil)
+
+# Add a flag to enable use of the new std::mutex 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")

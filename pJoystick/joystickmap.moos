@@ -1,0 +1,74 @@
+//name of the machine hosting the MOOSDB 
+//(can be an I.P address aswell as a FQDN)
+ServerHost = localhost 
+
+//port DB listens on (make sure you are blocking the port you request)
+ServerPort = 9002
+
+//optional global simualtion flags (some processes use this to fake reality when required)
+Simulator = false
+
+//all connected process can be tagged as belonging to a named community
+// Community = V1
+
+//////////////////////////////////
+// pAntler configuration  block  //
+//////////////////////////////////
+ProcessConfig = ANTLER
+{
+    // pAntler launches processes for you
+    // you can specify whether or not each process gets a new window or not
+    // you can specify the name under which each process registers with MOOSDB
+    // Run = PROC_NAME @ [ NewConsole = [TRUE/FALSE] [~ MOOSNAME]]
+
+    
+    //crucial processes
+    Run = MOOSDB            @   NewConsole = false 
+    Run = uMS               @   NewConsole = false
+    Run = pJoystick         @   NewConsole = false   
+    Run = pJoystickMapper   @   NewConsole = false
+
+
+    //this uses system the path
+    //ExecutablePath = /home/mmoseley/svn/Submersibles/CommonSoftware/package/x86/MOOSBin
+
+     //this sets how quickly processes are launched in milliseconds
+    MSBetweenLaunches = 2000
+}
+
+
+ProcessConfig = pJoystick
+{
+    //over loading basic params...
+    //How often to run and how often to contact the MOOSDB
+    AppTick     = 50.00
+    CommsTick   = 50.00
+    Verbose = false
+    
+    // Leave undefined for simple auto detect
+    //DevPath = "/dev/input/js0" 
+}
+
+
+ProcessConfig = pJoystickMapper
+{
+    //over loading basic params...
+    //How often to run and how often to contact the MOOSDB
+    AppTick     = 30.00
+    CommsTick   = 50.00
+    Verbose = false
+    VehicleName = SurfaceCraft
+    Deadband = 2000
+
+    //Button=ID=0,Key=TestKey,Value=TestValue,PublishName=TestCmd1
+    //Button=ID=1,Key=TestKey,Value=TestValue2,PublishName=TestCmd1
+    
+    //Button=ID=4,Key=TestKey3,PublishName=TestCmd2
+    
+    //Button=ID=5,PublishName=TestCmd3
+    //Button=ID=6,PublishName=TestCmd3
+
+    Axis=ID=3,Scale=-100,PublishName=USV_MOTION_REQUEST
+    Axis=ID=2,Scale=100,PublishName=USV_MOTION_REQUEST
+    //Axis=ID=5,ValueLow=down,ValueHigh=up,PublishName=OTHER_REQUEST
+}

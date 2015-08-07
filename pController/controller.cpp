@@ -33,7 +33,11 @@ Controller::Controller() {
 	dyd=0;
 	ddxd=0;
 	ddyd=0;
+	
+	P0_X = 0;
+	P0_Y = 0;
 
+	IMU_ready = 0;
 }
 
 //--------------------------------------------------------------------
@@ -44,226 +48,192 @@ bool Controller::OnNewMail(MOOSMSG_LIST &NewMail) {
 	MOOSMSG_LIST::iterator p1;
 
 	for(p1=NewMail.begin();p1!=NewMail.end();p1++)
+	{
+		//lets get a reference to the Message - no need for pointless copy
+		CMOOSMsg & rMsg = *p1;
+
+		// repetitive "ifs" is one way to build a switch yard for
+		// the messages
+		if(MOOSStrCmp(rMsg.GetKey(),"NAV_Y"))
 		{
-			//lets get a reference to the Message - no need for pointless copy
-			CMOOSMsg & rMsg = *p1;
-    
-			// repetitive "ifs" is one way to build a switch yard for
-			// the messages
-			if(MOOSStrCmp(rMsg.GetKey(),"NAV_Y"))
-			{
-				//this message is about something called "NAV_Y"
-				CMOOSMsg &Msg = rMsg;
-				if(!Msg.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_Y\" would be a double");
+			//this message is about something called "NAV_Y"
+			CMOOSMsg &Msg = rMsg;
+			if(!Msg.IsDouble())
+				return MOOSFail("Ouch - was promised \"NAV_Y\" would be a double");
 
-				y = Msg.GetDouble();
-				//MOOSTrace("Input_FL is %f\n",x);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_X"))
-			{
-				//this message is about something called "NAV_X"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_X\" would be a double");
+			y = Msg.GetDouble();
+			//MOOSTrace("Input_FL is %f\n",x);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
+		else if(MOOSStrCmp(rMsg.GetKey(),"NAV_X"))
+		{
+			//this message is about something called "NAV_X"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"NAV_X\" would be a double");
 
-				x = Msg1.GetDouble();
-				//MOOSTrace("Y is %f\n",y);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_YAW"))
-			{
-				//this message is about something called "Psi"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"NAV_YAW\" would be a double");
+			x = Msg1.GetDouble();
+			//MOOSTrace("Y is %f\n",y);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"NAV_YAW"))
+		{
+			//this message is about something called "Psi"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"NAV_YAW\" would be a double");
 
-				psi = Msg1.GetDouble();
-				//MOOSTrace("Psi is %f\n",ipsi);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"NAV_SPEED"))
-			{
-				//this message is about something called "U"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"U\" would be a double");
+			psi = Msg1.GetDouble();
+			//MOOSTrace("Psi is %f\n",ipsi);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"NAV_SPEED"))
+		{
+			//this message is about something called "U"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"U\" would be a double");
 
-				u = Msg1.GetDouble();
-				//MOOSTrace("U is %f\n",u);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"V"))
-			{
-				//this message is about something called "V"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"V\" would be a double");
+			u = Msg1.GetDouble();
+			//MOOSTrace("U is %f\n",u);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"V"))
+		{
+			//this message is about something called "V"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"V\" would be a double");
 
-				v = Msg1.GetDouble();
-				//MOOSTrace("V is %f\n",v);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"R"))
-			{
-				//this message is about something called "R"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"R\" would be a double");
+			v = Msg1.GetDouble();
+			//MOOSTrace("V is %f\n",v);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"R"))
+		{
+			//this message is about something called "R"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"R\" would be a double");
 
-				r = Msg1.GetDouble();
-				//MOOSTrace("R is %f\n",R);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"Xd"))
-			{
-				//this message is about something called "Xd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Xd\" would be a double");
+			r = Msg1.GetDouble();
+			//MOOSTrace("R is %f\n",R);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"Xd"))
+		{
+			//this message is about something called "Xd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Xd\" would be a double");
 
-				xd = Msg1.GetDouble();
-				//MOOSTrace("Xd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"Yd"))
-			{
-				//this message is about something called "Yd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Yd\" would be a double");
+			xd = Msg1.GetDouble();
+			//MOOSTrace("Xd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"Yd"))
+		{
+			//this message is about something called "Yd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Yd\" would be a double");
 
-				yd = Msg1.GetDouble();
-				//MOOSTrace("Yd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}		
-			else if(MOOSStrCmp(rMsg.GetKey(),"Dxd"))
-			{
-				//this message is about something called "Dxd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Dxd\" would be a double");
+			yd = Msg1.GetDouble();
+			//MOOSTrace("Yd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}		
+		else if(MOOSStrCmp(rMsg.GetKey(),"Dxd"))
+		{
+			//this message is about something called "Dxd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Dxd\" would be a double");
 
-				dxd = Msg1.GetDouble();
-				//MOOSTrace("Dxd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"Dyd"))
-			{
-				//this message is about something called "Dyd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Dyd\" would be a double");
+			dxd = Msg1.GetDouble();
+			//MOOSTrace("Dxd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"Dyd"))
+		{
+			//this message is about something called "Dyd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Dyd\" would be a double");
 
-				dyd = Msg1.GetDouble();
-				//MOOSTrace("Dyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"Ddxd"))
-			{
-				//this message is about something called "Ddxd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Ddxd\" would be a double");
+			dyd = Msg1.GetDouble();
+			//MOOSTrace("Dyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"Ddxd"))
+		{
+			//this message is about something called "Ddxd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Ddxd\" would be a double");
 
-				ddxd = Msg1.GetDouble();
-				//MOOSTrace("Ddxd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}			
-			else if(MOOSStrCmp(rMsg.GetKey(),"Ddyd"))
-			{
-				//this message is about something called "Ddyd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"Ddyd\" would be a double");
+			ddxd = Msg1.GetDouble();
+			//MOOSTrace("Ddxd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}			
+		else if(MOOSStrCmp(rMsg.GetKey(),"Ddyd"))
+		{
+			//this message is about something called "Ddyd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"Ddyd\" would be a double");
 
-				ddyd = Msg1.GetDouble();
-				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}
-			else if(MOOSStrCmp(rMsg.GetKey(),"TIME"))
-			{
-				//this message is about something called "Ddyd"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"TIME\" would be a double");
+			ddyd = Msg1.GetDouble();
+			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
+		else if(MOOSStrCmp(rMsg.GetKey(),"TIME"))
+		{
+			//this message is about something called "Ddyd"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"TIME\" would be a double");
 
-				t = Msg1.GetDouble();
-				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}
-			else if(MOOSStrCmp(rMsg.GetKey(),"DESIRED_SPEED"))
-			{
-				//this message is about something called "DESIRED_SPEED"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"DESIRED_SPEED\" would be a double");
+			t = Msg1.GetDouble();
+			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
+		else if(MOOSStrCmp(rMsg.GetKey(),"DESIRED_SPEED"))
+		{
+			//this message is about something called "DESIRED_SPEED"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"DESIRED_SPEED\" would be a double");
 
-				ud = Msg1.GetDouble();
-				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}
-			/*else if(MOOSStrCmp(rMsg.GetKey(),"P0_X"))
-			{
-				//this message is about something called "P0_X"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"P0_X\" would be a double");
+			ud = Msg1.GetDouble();
+			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
+		else if(MOOSStrCmp(rMsg.GetKey(),"IMU_GPS_Stable"))
+		{
+			//this message is about something called "IMU_GPS_Stable"
+			CMOOSMsg &Msg1 = rMsg;
+			if(!Msg1.IsDouble())
+				return MOOSFail("Ouch - was promised \"IMU_GPS_Stable\" would be a double");
 
-				P0_X = Msg1.GetDouble();
-				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}
-			else if(MOOSStrCmp(rMsg.GetKey(),"P0_Y"))
-			{
-				//this message is about something called "P0_Y"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsDouble())
-					return MOOSFail("Ouch - was promised \"P0_Y\" would be a double");
-
-				P0_Y = Msg1.GetDouble();
-				//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
-				//if you want to see all details in Msg, you can print a message by
-				//Msg.Trace();
-			}*/
-			else if(MOOSStrCmp(rMsg.GetKey(),"pattern"))
-			{
-				//this message is about something called "Pattern"
-				CMOOSMsg &Msg1 = rMsg;
-				if(!Msg1.IsString())
-					return MOOSFail("Ouch - was promised \"pattern\" would be a string");
-
-				// Parse the pattern definition string to find the coordinates
-				pattern = Msg1.GetString();
-
-				Header0XPos = pattern.find("P0_X");
-				Header0YPos = pattern.find("P0_Y");
-				Header1XPos = pattern.find("P1_X");
-
-				char newBuf[10] = {'0','0','0','0','0','0','0','0','0','0'};
-
-				pattern.copy(buffer, (Header0YPos-1)-(Header0XPos+5), Header0XPos+5);
-				P0_X = atof(buffer);
-				strcpy(buffer, newBuf);
-				pattern.copy(buffer, (Header1XPos-1)-(Header0YPos+5), Header0YPos+5);
-				P0_Y = atof(buffer);
-			}
+			IMU_ready = Msg1.GetDouble();
+			//MOOSTrace("Ddyd is %f\n",input_FR);//the actual heading
+			//if you want to see all details in Msg, you can print a message by
+			//Msg.Trace();
+		}
 	}
 
 	return true;
@@ -393,7 +363,8 @@ bool Controller::OnConnectToServer() {
 	Register("Ddyd",0);
 	Register("TIME",0);
 	Register("DESIRED_SPEED", 0);
-	Register("pattern",0);
+	Register("IMU_GPS_Stable", 0);
+
 	return true;
 }
 
@@ -403,67 +374,80 @@ bool Controller::OnConnectToServer() {
 // upon runtime
 
 bool Controller::Iterate() {
-	e1out = x - P0_X;
-	e2out = y - P0_Y;
+	
+	if (IMU_ready) {
 
-	e1=x-xd+epsilon*cos(psi);
-	e2=y-yd+epsilon*sin(psi);
+		e1out = x - P0_X;
+		e2out = y - P0_Y;
 
-	if ((e1*e1+e2*e2)>Err_e_i) {
-	       K1 = K1_i;
+		e1=x-xd+epsilon*cos(psi);
+		e2=y-yd+epsilon*sin(psi);
+
+		if ((e1*e1+e2*e2)>Err_e_i) {
+		       K1 = K1_i;
+		}
+		else {
+		       K1=K1_m;
+		}
+	    
+		tp1=-K1*e1+sin(psi)*v+dxd;
+		tp2=-K1*e2-cos(psi)*v+dyd;
+		eta1=cos(psi)*tp1+sin(psi)*tp2;
+		eta2=-sin(psi)*tp1/epsilon+cos(psi)*tp2/epsilon;
+		z1=u-eta1;
+		z2=r-eta2;
+
+		if (z1*z1+z2*z2>Err_z_i) {
+			K2 = K2_i;
+			K3 = K3_i;
+		}
+		else {
+		    K2=K2_m;
+		    K3=K3_m;
+		}
+		tp1=-K1*e1+dxd;
+		tp2=-K1*e2+dyd;
+		eta1b=cos(psi)*tp1+sin(psi)*tp2;
+		eta2b=-sin(psi)*tp1/epsilon+cos(psi)*tp2/epsilon;
+		de1=-K1*e1+cos(psi)*z1-epsilon*sin(psi)*z2;
+		de2=-K1*e2+sin(psi)*z1+epsilon*cos(psi)*z2;
+		dtp1=-K1*de1+ddxd;
+		dtp2=-K1*de2+ddyd;
+
+		deta1b=-sin(psi)*r*tp1+cos(psi)*dtp1+cos(psi)*r*tp2+sin(psi)*dtp2;
+		deta2b=-cos(psi)*r*tp1/epsilon-sin(psi)*dtp1/epsilon-sin(psi)*r*tp2/epsilon+cos(psi)*dtp2/epsilon;
+
+		zeta1=-K2*z1-m22b*v*r+d11b*u+m11b*deta1b-(rho2*abs(v*r)+rho4*abs(u)+rho1*abs(deta1b)+rho6)*copysign(1.0,z1);
+		zeta2=-K3*z2-(m11b-m22b)*u*v+d33b*r+m33b*deta2b+m11b*m33b/m22b*u*r/epsilon+d22b*m33b/m22b*v/epsilon-((rho1+rho2)*abs(u*v)+rho5*abs(r)+rho3*abs(deta2b)+rho7+rho8*abs(u*r)/epsilon+rho10/epsilon)*copysign(1.0,z2);
+
+		DESIRED_PORTTHRUSTER=(zeta1-zeta2/L)/2;   //left force
+		DESIRED_STARBOARDTHRUSTER=(zeta1+zeta2/L)/2;  //right force
+
+		if (abs(ud) <= 0.01) {
+			DESIRED_PORTTHRUSTER = 0;
+			DESIRED_STARBOARDTHRUSTER = 0;
+		}
+
+		if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
+			DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
+		}
+
+		if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
+			DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
+		}
 	}
 	else {
-	       K1=K1_m;
-	}
-    
-	tp1=-K1*e1+sin(psi)*v+dxd;
-	tp2=-K1*e2-cos(psi)*v+dyd;
-	eta1=cos(psi)*tp1+sin(psi)*tp2;
-	eta2=-sin(psi)*tp1/epsilon+cos(psi)*tp2/epsilon;
-	z1=u-eta1;
-	z2=r-eta2;
-
-	if (z1*z1+z2*z2>Err_z_i) {
-		K2 = K2_i;
-		K3 = K3_i;
-	}
-	else {
-	    K2=K2_m;
-	    K3=K3_m;
-	}
-	tp1=-K1*e1+dxd;
-	tp2=-K1*e2+dyd;
-	eta1b=cos(psi)*tp1+sin(psi)*tp2;
-	eta2b=-sin(psi)*tp1/epsilon+cos(psi)*tp2/epsilon;
-	de1=-K1*e1+cos(psi)*z1-epsilon*sin(psi)*z2;
-	de2=-K1*e2+sin(psi)*z1+epsilon*cos(psi)*z2;
-	dtp1=-K1*de1+ddxd;
-	dtp2=-K1*de2+ddyd;
-
-	deta1b=-sin(psi)*r*tp1+cos(psi)*dtp1+cos(psi)*r*tp2+sin(psi)*dtp2;
-	deta2b=-cos(psi)*r*tp1/epsilon-sin(psi)*dtp1/epsilon-sin(psi)*r*tp2/epsilon+cos(psi)*dtp2/epsilon;
-
-	zeta1=-K2*z1-m22b*v*r+d11b*u+m11b*deta1b-(rho2*abs(v*r)+rho4*abs(u)+rho1*abs(deta1b)+rho6)*copysign(1.0,z1);
-	zeta2=-K3*z2-(m11b-m22b)*u*v+d33b*r+m33b*deta2b+m11b*m33b/m22b*u*r/epsilon+d22b*m33b/m22b*v/epsilon-((rho1+rho2)*abs(u*v)+rho5*abs(r)+rho3*abs(deta2b)+rho7+rho8*abs(u*r)/epsilon+rho10/epsilon)*copysign(1.0,z2);
-
-	DESIRED_PORTTHRUSTER=(zeta1-zeta2/L)/2;   //left force
-	DESIRED_STARBOARDTHRUSTER=(zeta1+zeta2/L)/2;  //right force
-
-	if (abs(ud) <= 0.01) {
 		DESIRED_PORTTHRUSTER = 0;
 		DESIRED_STARBOARDTHRUSTER = 0;
 	}
 
-	if (abs(DESIRED_PORTTHRUSTER) > Fmax) {
-		DESIRED_PORTTHRUSTER = copysign(Fmax, DESIRED_PORTTHRUSTER);
-	}
-
-	if (abs(DESIRED_STARBOARDTHRUSTER) > Fmax) {
-		DESIRED_STARBOARDTHRUSTER = copysign(Fmax, DESIRED_STARBOARDTHRUSTER);
-	}
+	portThrustCMD = DESIRED_PORTTHRUSTER*1000/Fmax;
+	stdbThrustCMD = DESIRED_STARBOARDTHRUSTER*1000/Fmax;
 
 	Notify("DESIRED_PORTTHRUSTER",DESIRED_PORTTHRUSTER);
 	Notify("DESIRED_STARBOARDTHRUSTER",DESIRED_STARBOARDTHRUSTER);
+	Notify("DESIRED_PORTTHRUSTER_CMD", portThrustCMD);
+	Notify("DESIRED_STARBOARDTHRUSTER_CMD", stdbThrustCMD);
 	Notify("e1out", e1out);
 	Notify("e2out", e2out);
 

@@ -19,7 +19,7 @@ ProcessConfig = ANTLER
   Run = MOOSDB          @ NewConsole = false
   Run = pTimer          @ NewConsole = false
   Run = pStateGen       @ NewConsole = false
-  Run = pVehicle        @ NewConsole = false
+  //Run = pVehicle        @ NewConsole = false
   Run = pController     @ NewConsole = false
   Run = pNodeReporter	@ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
@@ -27,7 +27,8 @@ ProcessConfig = ANTLER
   Run = pMOOSBridge		@ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
-  Run = pPatternDefinition @ NewConsole = false
+  Run = imuSpatial	@ NewConsole = false
+  //Run = pPatternDefinition @ NewConsole = false
 }
 
 //------------------------------------------
@@ -53,8 +54,8 @@ ProcessConfig = pTimer
 
 ProcessConfig = pVehicle
 {
-	AppTick= 4
-	CommsTick = 4
+	AppTick= 20
+	CommsTick = 20
 
 	VehicleName = Leader
 
@@ -108,7 +109,8 @@ ProcessConfig = pController
 	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
 	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
 	Rho10 = 10	//bound of |D22*m33/m22|
-	Control_Saturation = 300  // Control saturation value
+	
+	Control_Saturation = 140  // Control saturation value
 }
 
 //------------------------------------------
@@ -200,4 +202,10 @@ ProcessConfig = pMOOSBridge
 	CommsTick  = 2
 
 	SHARE=[e1out, e2out, DESIRED_SPEED]->Follower1@localhost:9002 [e0_X, e0_Y, DESIRED_SPEED]
+}
+
+ProcessConfig = imuSpatial
+{
+    port = /dev/ttyUSB0
+    portman = 20
 }

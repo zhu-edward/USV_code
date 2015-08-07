@@ -5,7 +5,7 @@
 
 ServerHost = localhost
 ServerPort = 9001
-Community  = USV
+Community  = Leader
 
 MOOSTimeWarp = 1
 
@@ -19,13 +19,16 @@ ProcessConfig = ANTLER
   Run = MOOSDB          @ NewConsole = false
   Run = pTimer          @ NewConsole = false
   Run = pStateGen       @ NewConsole = false
-  Run = pVehicle        @ NewConsole = false
+  //Run = pVehicle        @ NewConsole = false
   Run = pController     @ NewConsole = false
-  Run = pNodeReporter	  @ NewConsole = false
+  Run = pNodeReporter	@ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
   Run = pShare          @ NewConsole = false
+  Run = pMOOSBridge		@ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
+  Run = imuSpatial	@ NewConsole = false
+  //Run = pPatternDefinition @ NewConsole = false
 }
 
 //------------------------------------------
@@ -35,9 +38,6 @@ ProcessConfig = pStateGen
 {
 	AppTick   = 4
 	CommsTick = 4
-
-	x0 = 0
-	y0 = 0
 }
 
 //------------------------------------------
@@ -45,8 +45,8 @@ ProcessConfig = pStateGen
 
 ProcessConfig = pTimer
 {
-	AppTick   = 10
-	CommsTick = 10
+	AppTick   = 20
+	CommsTick = 20
 }
 
 //------------------------------------------
@@ -54,12 +54,14 @@ ProcessConfig = pTimer
 
 ProcessConfig = pVehicle
 {
-	AppTick= 4
-	CommsTick = 4
+	AppTick= 20
+	CommsTick = 20
 
 	VehicleName = Leader
 
-	InitialLocation_psi = 270
+	x0 = 0
+	y0 = 0
+	InitialLocation_psi = 100
 	InitialLocation_u = 0
 	InitialLocation_v = 0
 	InitialLocation_r = 0
@@ -107,7 +109,8 @@ ProcessConfig = pController
 	Rho8 = 40	//bound of |m11*m33/m22-m11b*m33b/m22b|
 	Rho9 = 30	//bound of |d22*m33/m22-d22b*m33b/m22b|
 	Rho10 = 10	//bound of |D22*m33/m22|
-	Control_Saturation = 300  // Control saturation value
+	
+	Control_Saturation = 140  // Control saturation value
 }
 
 //------------------------------------------
@@ -165,7 +168,6 @@ ProcessConfig = pShare
   CommsTick  = 2
 
   input = route =  localhost:9301
-  output = src_name=Y, dest_name=B, route=localhost:9300
 }
 
 //--------------------------------------------------
@@ -177,4 +179,31 @@ ProcessConfig = pHostInfo
   CommsTick 	= 1
 
   DEFAULT_HOSTIP = localhost
+}
+
+//------------------------------------------
+// pPatternDefinition
+
+ProcessConfig = pPatternDefinition
+{
+  AppTick = 1
+  CommsTick = 1
+
+  Height = 20
+  Base = 40
+}
+
+//------------------------------------------
+// pMOOSBridge
+
+ProcessConfig = pMOOSBridge
+{
+	AppTick    = 2
+	CommsTick  = 2
+
+	SHARE=[e1out, e2out, DESIRED_SPEED]->Follower1@localhost:9002 [e0_X, e0_Y, DESIRED_SPEED]
+}
+
+ProcessConfig = imuSpatial
+{
 }

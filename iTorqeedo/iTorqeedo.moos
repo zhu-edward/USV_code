@@ -1,0 +1,88 @@
+// MOOS file
+
+ServerHost = localhost
+ServerPort = 9000
+
+//////////////////////////////////
+// pAntler configuration  block  //
+//////////////////////////////////
+ProcessConfig = ANTLER
+{
+  // pAntler launches processes for you
+  // you can specify whether or not each process gets a new window or not
+  // you can specify the name under which each process registers with MOOSDB
+  // Run = PROC_NAME @ [ NewConsole = [TRUE/FALSE] [~ MOOSNAME]]
+  
+  //crucial processes
+  Run = MOOSDB     	@   NewConsole = true
+  Run = uMS         @   NewConsole = true
+  Run = iTorqeedo   @   NewConsole = false
+  Run = pJoystick  @ NewConsole = true
+  Run = pJoystickMapper   @ NewConsole = true
+  Run = pHelmIvP	@ NewConsole = true
+
+  //this next line sets the executable paths explicitly
+  //ExecutablePath = ./
+
+  //this uses system the path
+  //ExecutablePath = SYSTEMPATH
+
+  //this sets how quickly processes are launched in milliseconds
+  MSBetweenLaunches = 400
+}
+
+ProcessConfig = iTorqeedo
+{
+  AppTick   = 10
+  CommsTick = 10
+  
+  Name = Starboard
+  Device = /dev/ttyUSB1
+  ControlRate = 0
+  MaxOutput = 1000
+}
+
+ProcessConfig = pJoystickMapper
+{
+    //over loading basic params...
+    //How often to run and how often to contact the MOOSDB
+    AppTick     = 20.00
+    CommsTick   = 50.00
+    Verbose = false
+    VehicleName = SurfaceCraft_NormalSpeed
+    Deadband = 2000
+
+    Axis=ID=3,Scale=-50,Key=USV_horizontal_motion,PublishName=USV_MOTION_REQUEST
+    Axis=ID=2,Scale=50,Key=USV_rotation,PublishName=USV_MOTION_REQUEST
+}
+
+ProcessConfig = pJoystick
+{
+    AppTick   = 20
+    CommsTick = 20
+
+    Verbosity = false
+}
+
+ProcessConfig = pHelmIvP
+{
+    AppTick   = 20
+    CommsTick = 20
+
+    Domain = speed:0:5:51:optional
+    Domain = course:0:359:360:optional
+    Domain = PortThruster_CMD,-100:100:201:optional
+    Domain = StarboardThruster_CMD,-100:100:201:optional  
+
+    Behaviors = current_usv.bhv     //Usually matches community name.
+
+
+    start_engaged = true
+    //verbose = verbose
+
+    OK_SKEW = ANY
+}
+
+
+
+

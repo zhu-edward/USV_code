@@ -1,0 +1,61 @@
+//----------------------------------------------------------------------------
+// MOOS File for STID USV Operations
+//#define LATORIGIN  41.536570
+//#define LONGORIGIN -71.350268
+// Use this for gould island
+//#define LATORIGIN  41.530
+//#define LONGORIGIN -71.3475
+// Use this for mackerel cove
+//#define LATORIGIN  44.261823
+//#define LONGORIGIN -73.296472
+
+
+
+
+
+
+
+
+
+
+ServerHost = localhost
+ServerPort = 9001
+
+Simulator = false
+
+Community = STID_USV
+
+LatOrigin  = 41.482
+LongOrigin = -71.382
+
+
+//----------------------------------------------------------------------------
+ProcessConfig = ANTLER
+{
+    MSBetweenLaunches = 200
+    DBXConsoleSettings=-bg,LightSteelBlue
+    
+    //always launched
+    Run = MOOSDB            @ NewConsole = false, XConfig=DBXConsoleSettings
+    Run = iTorqeedo_new         @ NewConsole = false, XConfig=DBXConsoleSettings ~ iStarboardThruster
+}
+
+
+ProcessConfig = MOOSDB
+{
+  SERVERPORT = 9001
+  COMMUNITY = STID_USV
+  WarningLatency = 6000
+}
+
+
+ProcessConfig = iStarboardThruster
+{
+  AppTick   = 10
+  CommsTick = 10
+  
+  Name = DESIRED_STARBOARDTHRUSTER
+  Device = /dev/ttyUSB0 // ttyCTI7 or USB1
+  ControlRate = 1
+}
+

@@ -1,0 +1,32 @@
+=============================================================== 
+uSimMarine Example MOOS Configuration. edited for imuSpatial                          
+=============================================================== 
+                                                                
+ProcessConfig = ANTLER                                      
+{                                                               
+  MSBetweenLaunches = 200
+      Run = MOOSDB
+      Run = uMS
+      Run = imuSpatial
+      Run = pTimer
+      //Run = pLogger
+
+      GlobalLogPath = logs
+}                                                               
+
+ProcessConfig = pLogger
+{
+    //FileTimeStamp = false
+    //File = myLogFile.txt    
+}
+
+ProcessConfig = imuSpatial
+{
+    port = /dev/ttyUSB0
+    portman = 20
+}
+ProcessConfig = pTimer
+{
+    AppTick = 40
+    CommsTick = 40
+}

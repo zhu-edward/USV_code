@@ -45,6 +45,8 @@ protected:
 
 	double DESIRED_PORTTHRUSTER;
 	double DESIRED_STARBOARDTHRUSTER;
+	double portThrustCMD;
+	double stdbThrustCMD;
 	double Fmax;
 
 	double Err_e_i;
@@ -101,9 +103,11 @@ protected:
 	double P0_X;
 	double P0_Y;
 
-	std::string pattern;
+	double IMU_ready;
+	
+	/*std::string pattern;
 	char buffer[10];
 	double Header0XPos;
 	double Header0YPos;
-	double Header1XPos;
+	double Header1XPos;*/
 };

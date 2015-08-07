@@ -115,14 +115,18 @@ protected:
 	double delta2;
 	double DESIRED_PORTTHRUSTER;
 	double DESIRED_STARBOARDTHRUSTER;
+	double portThrustCMD;
+	double stdbThrustCMD;
 
 	std::string neighbors;
 	int vehicleIdent;
 	double connections;
 
-	std::string pattern;
+	double IMU_ready;
+	/*std::string pattern;
 	char buffer [10];
-	double Header1XPos, Header1YPos, Header2XPos, Header2YPos, Header3XPos, Header3YPos;
+	double Header1XPos, Header1YPos, Header2XPos, Header2YPos, Header3XPos, Header3YPos;*/
+	
 	double P1_X, P1_Y, P2_X, P2_Y, P3_X, P3_Y;
 
 	std::string debug;

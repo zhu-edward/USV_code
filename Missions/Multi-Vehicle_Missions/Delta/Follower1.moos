@@ -1,0 +1,212 @@
+//-------------------------------------------------
+// NAME: Edward Zhu
+// FILE: USV.moos
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9002
+Community  = Follower1
+
+MOOSTimeWarp = 1
+
+//------------------------------------------
+// Antler configuration  block
+
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  Run = MOOSDB          		@ NewConsole = false
+  Run = pTimer          		@ NewConsole = false
+  Run = pVehicle        		@ NewConsole = false
+  Run = pBacksteppingController @ NewConsole = false
+  Run = pNodeReporter	  		@ NewConsole = false
+  Run = pShare          		@ NewConsole = false
+  Run = uFldNodeBroker  		@ NewConsole = false
+  Run = pHostInfo       		@ NewConsole = false
+  Run = pPatternDefinition 		@ NewConsole = false
+  Run = pMOOSBridge				@ NewConsole = false
+  //Run = imuSpatial				@ NewConsole = false
+  //Run = iTorqeedo_new			@ NewConsole = false, XConfig = DBXConsoleSettings ~ iTorqeedo_Port
+  //Run = iTorqeedo_new			@ NewConsole = false, XConfig = DBXConsoleSettings ~ iTorqeedo_Stbd
+}
+
+//------------------------------------------
+// pTimer configuration  block
+
+ProcessConfig = pTimer
+{
+	AppTick   = 40
+	CommsTick = 40
+}
+
+//------------------------------------------
+// pVehicle configuration  block
+
+ProcessConfig = pVehicle
+{
+	AppTick= 40
+	CommsTick = 40
+
+	VehicleName = Follower1
+
+	x0 = 0
+	y0 = 20
+	InitialLocation_psi = 100
+	InitialLocation_u = 0
+	InitialLocation_v = 0
+	InitialLocation_r = 0
+	DESIRED_PORTTHRUSTER = 0
+	DESIRED_STARBOARDTHRUSTER = 0
+	LatOrigin  = 43.825300 
+	LongOrigin = -70.330400 
+}
+
+//------------------------------------------
+// pBacksteppingController configuration  block
+
+ProcessConfig = pBacksteppingController
+{
+	AppTick   = 40
+	CommsTick = 40
+
+	// Vehicle Parameters
+	m1e = 210
+	m2e = 245
+	m3e = 75
+	d1e = 65
+	d2e = 110
+	d3e = 52
+	L = 1
+
+	epsilon = 0.05
+
+	rho1 = 10
+	rho2 = 10
+	rho3 = 10
+	rho4 = 10
+	rho5 = 10
+	rho6 = 10
+	rho7 = 10 
+	rhox = 3
+	rhoy = 3
+
+	K1 = 3
+	K2 = 3
+	K4 = 3
+	K3 = 3
+	K5 = 3
+
+	VehicleIdentity = 1
+	Fmax = 300
+
+	// Initial conditions
+	eta3f = 1
+	eta4f = 1
+	eta5f = 1
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  AppTick    = 2
+  CommsTick	 = 2
+
+  platform_type   = USV
+  platform_length = 4
+}
+
+//--------------------------------------------------
+// uFldNodeBroker configuration block
+
+ProcessConfig = uFldNodeBroker
+{
+  AppTick   = 1
+  CommsTick = 1
+
+  TRY_SHORE_HOST = pshare_route=localhost:9300
+
+  BRIDGE = src=VIEW_POLYGON
+  BRIDGE = src=VIEW_CIRCLE
+  BRIDGE = src=VIEW_POINT
+  BRIDGE = src=VIEW_SEGLIST
+  BRIDGE = src=APPCAST
+  BRIDGE = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
+  BRIDGE = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
+}
+
+//---------------------------------------------------------
+// pShare Config Block
+
+ProcessConfig = pShare
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  input = route =  localhost:9302
+}
+
+//--------------------------------------------------
+// pHostInfo configuration block from plugin
+
+ProcessConfig = pHostInfo
+{
+  AppTick 	= 1
+  CommsTick 	= 1
+
+  DEFAULT_HOSTIP = localhost
+}
+
+//------------------------------------------
+// pPatternDefinition
+
+ProcessConfig = pPatternDefinition
+{
+  AppTick = 1
+  CommsTick = 1
+
+  Height = 20
+  Base = 40
+}
+
+//------------------------------------------
+// pMOOSBridge
+
+ProcessConfig = pMOOSBridge
+{
+	AppTick    = 2
+	CommsTick  = 2
+
+	SHARE=[e1out, e2out, DESIRED_SPEED]->Follower2@localhost:9003 [e1_X, e1_Y, DESIRED_SPEED]
+	SHARE=[e1out, e2out, DESIRED_SPEED]->Follower3@localhost:9004 [e1_X, e1_Y, DESIRED_SPEED]
+}
+
+//------------------------------------------
+// iTorqeedo_Port
+
+ProcessConfig = iTorqeedo_Port
+{
+	AppTick = 40
+	CommsTick = 40
+
+	Name = DESIRED_PORT
+	Device = /dev/ttyUSB0
+	ControlRate = 0
+	MaxOutput = 1000
+}
+
+//------------------------------------------
+// iTorqeedo_Stdb
+
+ProcessConfig = iTorqeedo_Stbd
+{
+	AppTick = 40
+	CommsTick = 40
+
+	Name = DESIRED_STARBOARDTHRUSTER
+	Device = /dev/ttyUSB1
+	ControlRate = 0
+	MaxOutput = 1000
+}
